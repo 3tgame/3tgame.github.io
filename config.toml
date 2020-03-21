@@ -1,4 +1,4 @@
-baseURL = "https://3tgame.github.io/blog/"
+baseURL = "https://3tgame.github.io/"
 languageCode = "en"
 defaultContentLanguage = "zh-cn"                             # en / zh-cn / ... (This field determines which i18n file to use)
 title = "3tgame - find my shadow"
@@ -138,7 +138,7 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
 
   [params.utterances]       # https://utteranc.es/
     owner = "3tgame"              # Your GitHub ID
-    repo = "blog"               # The repo to store comments
+    repo = "3tgame.github.io"               # The repo to store comments
 
   [params.gitalk]           # Gitalk is a comment system based on GitHub issues. see https://github.com/gitalk/gitalk
     owner = ""              # Your GitHub ID
