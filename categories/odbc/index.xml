@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ODBC on 3tgame - find my shadow</title>
+    <link>https://3tgame.github.io/categories/odbc/</link>
+    <description>Recent content in ODBC on 3tgame - find my shadow</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 17 Jan 2015 12:30:18 +0000</lastBuildDate>
+    
+	<atom:link href="https://3tgame.github.io/categories/odbc/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>打开腾讯通RTX管理器提示选择数据源</title>
+      <link>https://3tgame.github.io/post/2015-01-17-rtx-manager-warn-to-choose-datasource/</link>
+      <pubDate>Sat, 17 Jan 2015 12:30:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2015-01-17-rtx-manager-warn-to-choose-datasource/</guid>
+      <description>问题：双击 RTX管理器，弹出窗口提示选择数据源。 查看 配置 D:\Program Files (x86)\Tencent\RTXServer\Config\rtxserver</description>
+    </item>
+    
+  </channel>
+</rss>

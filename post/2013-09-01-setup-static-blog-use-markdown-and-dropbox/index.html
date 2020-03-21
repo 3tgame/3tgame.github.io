@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用Markdown和DropBox第3方服务搭建静态博客 - 3tgame - find my shadow</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xyr" /><meta name="description" content="注册Scriptogr服务 到Scriptogr.am注册服务。注册完成会在Dropbox目录下创建目录**_应用/scriptogram_*" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.66.0 with theme even" />
+
+
+<link rel="canonical" href="https://3tgame.github.io/post/2013-09-01-setup-static-blog-use-markdown-and-dropbox/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="使用Markdown和DropBox第3方服务搭建静态博客" />
+<meta property="og:description" content="注册Scriptogr服务 到Scriptogr.am注册服务。注册完成会在Dropbox目录下创建目录**_应用/scriptogram_*" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://3tgame.github.io/post/2013-09-01-setup-static-blog-use-markdown-and-dropbox/" />
+<meta property="article:published_time" content="2013-09-01T23:59:18+00:00" />
+<meta property="article:modified_time" content="2013-09-01T23:59:18+00:00" />
+<meta itemprop="name" content="使用Markdown和DropBox第3方服务搭建静态博客">
+<meta itemprop="description" content="注册Scriptogr服务 到Scriptogr.am注册服务。注册完成会在Dropbox目录下创建目录**_应用/scriptogram_*">
+<meta itemprop="datePublished" content="2013-09-01T23:59:18&#43;00:00" />
+<meta itemprop="dateModified" content="2013-09-01T23:59:18&#43;00:00" />
+<meta itemprop="wordCount" content="471">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用Markdown和DropBox第3方服务搭建静态博客"/>
+<meta name="twitter:description" content="注册Scriptogr服务 到Scriptogr.am注册服务。注册完成会在Dropbox目录下创建目录**_应用/scriptogram_*"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">3tgame</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">3tgame</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">使用Markdown和DropBox第3方服务搭建静态博客</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2013-09-01 </span>
+        <div class="post-category">
+            <a href="/categories/blog/"> blog </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#加入scriptogr服务需要的说明信息">加入Scriptogr服务需要的说明信息</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="注册scriptogr服务">注册Scriptogr服务</h1>
+<p>到<a href="http://scriptogr.am/">Scriptogr.am</a>注册服务。注册完成会在Dropbox目录下创建目录**_应用/scriptogram_**,里面的posts目录用于放置Markdown文件。</p>
+<h1 id="编写markdown">编写Markdown</h1>
+<p>在<em>Dropbox/应用/scriptogram/posts</em>目录创建Markdown文件<strong>2013-09-01.md</strong>。使用Markdown语法编写文章。可使用Markdown在线编辑工具<a href="http://markable.in/editor/">markable.in</a> 或<a href="http://daringfireball.net/projects/markdown/dingus">dingus</a>进行所见即所得的编写，可到<a href="http://daringfireball.net/projects/markdown/syntax">Markdown的网站</a>查看Markdown的语法。</p>
+<h2 id="加入scriptogr服务需要的说明信息">加入Scriptogr服务需要的说明信息</h2>
+<p>按照启用Scriptogr服务后，自动创建的一篇介绍文章<a href="http://scriptogr.am/3tgame/post/this-is-your-blog-delivered-by-scriptogr.am">This is your blog, delivered by scriptogr.am</a>的说明，在编写的Markdown文件前加入如下内容:</p>
+<pre><code>Date: 2011-12-31 12:31
+Title: This is your blog, delivered by scriptogr.am
+</code></pre>
+<blockquote>
+<p>其中Title是必需的，Date不是必需的。</p>
+</blockquote>
+<h1 id="同步markdown文件到scriptogr">同步Markdown文件到Scriptogr</h1>
+<p>进入<a href="http://scriptogr.am/dashboard#dashboard">Scriptogr网站的控制面板</a>，点击同步（Synchronize）按钮。在登录<a href="http://scriptogr.am/3tgame">Scriptogr个人博客域名</a>，即可刚发布的文章。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">xyr</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2013-09-01
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/2014-01-06-set-up-visual-studio-environment-for-c-call-lua-code/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">在Visual Studio中配置环境，用于C代码调用Lua代码</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="3tgame/3tgame.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://t.me/ziyouzengzhang" class="iconfont icon-telegram" title="telegram"></a>
+      <a href="https://twitter.com/xunyingren" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/3tgame" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.douban.com/people/32193900/" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://jq.qq.com/?_wv=1027&amp;k=5ggPyQW" class="iconfont icon-pocket" title="pocket"></a>
+  <a href="https://3tgame.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2013 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">xyr</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

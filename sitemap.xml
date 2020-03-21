@@ -1,0 +1,354 @@
+<?xml-stylesheet type="text/xsl" href="https://3tgame.github.io/sitemap.xsl"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://3tgame.github.io/about/</loc>
+    <lastmod>2017-08-28T21:41:52+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/categories/</loc>
+    <lastmod>2019-08-08T18:10:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/tags/linux/</loc>
+    <lastmod>2019-08-08T18:10:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/categories/linux/</loc>
+    <lastmod>2019-08-08T18:10:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/post/</loc>
+    <lastmod>2019-08-08T18:10:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/tags/</loc>
+    <lastmod>2019-08-08T18:10:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/post/2019-08-08-thundering-herd/</loc>
+    <lastmod>2019-08-08T18:10:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/categories/android/</loc>
+    <lastmod>2019-08-02T16:10:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/post/2019-08-02-android-app-inside-update/</loc>
+    <lastmod>2019-08-02T16:10:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/</loc>
+    <lastmod>2017-08-28T21:41:52+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/categories/http-javascript/</loc>
+    <lastmod>2017-06-15T16:18:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/post/2017-06-16-canceled_status_request/</loc>
+    <lastmod>2017-06-15T16:18:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/post/2017-04-19-loading-class-of-java-and-tomcat/</loc>
+    <lastmod>2017-04-19T16:18:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/categories/tomcat-java/</loc>
+    <lastmod>2017-04-19T16:18:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/categories/tomcat-session/</loc>
+    <lastmod>2017-04-13T16:18:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/post/2017-04-13-share-session-data-between-servers/</loc>
+    <lastmod>2017-04-13T16:18:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/categories/tomcat-centos/</loc>
+    <lastmod>2017-04-11T16:18:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/post/2017-04-11-multiple-tomcat-instances-in-one-machine/</loc>
+    <lastmod>2017-04-11T16:18:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/categories/email-centos/</loc>
+    <lastmod>2017-03-28T14:18:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/post/2017-03-28-use-qqmail-to-send-mail-on-linux/</loc>
+    <lastmod>2017-03-28T14:18:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/post/2017-03-24-email-server-use-postfix/</loc>
+    <lastmod>2017-03-24T17:18:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/post/2017-03-22-npm-dependencies-use-git-repository/</loc>
+    <lastmod>2017-03-22T17:10:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/categories/npm-git/</loc>
+    <lastmod>2017-03-22T17:10:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/post/2017-03-10-server-cannot-get-post-parameters-from-ie9s-cors-request/</loc>
+    <lastmod>2017-03-10T15:30:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/categories/%E8%B7%A8%E5%9F%9F/</loc>
+    <lastmod>2017-03-10T15:30:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/categories/dns/</loc>
+    <lastmod>2015-08-03T17:10:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/post/2015-08-03-setup-dnsmasq-as-local-dns-server/</loc>
+    <lastmod>2015-08-03T17:10:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/categories/erlang/</loc>
+    <lastmod>2015-05-16T18:18:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/post/2015-05-16-notice-on-socket-passive-mode-and-delay_send/</loc>
+    <lastmod>2015-05-16T18:18:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/post/2015-05-13-erlang-ets-disappear/</loc>
+    <lastmod>2015-05-13T18:08:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/post/2015-05-12-observer-linux-node-with-gui-at-windows/</loc>
+    <lastmod>2015-05-12T21:08:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/post/2015-04-13-nginx-cant-access-file-when-centos-upgrade-to-6.6/</loc>
+    <lastmod>2015-04-13T14:30:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/categories/nginx/</loc>
+    <lastmod>2015-04-13T14:30:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/post/2015-04-01-erlang-log-framework-lager/</loc>
+    <lastmod>2015-04-01T21:30:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/post/2015-03-31-use-intellij-idea-to-debug-erlang-otp-apps/</loc>
+    <lastmod>2015-03-31T18:30:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/categories/odbc/</loc>
+    <lastmod>2015-01-17T12:30:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/post/2015-01-17-rtx-manager-warn-to-choose-datasource/</loc>
+    <lastmod>2015-01-17T12:30:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/post/2015-01-06-use-wireshark-tcpdump-capture-android-packet/</loc>
+    <lastmod>2015-01-06T11:10:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/categories/socket/</loc>
+    <lastmod>2014-12-26T17:10:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/post/2014-12-26-heartbeat-packet/</loc>
+    <lastmod>2014-12-26T17:10:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/post/2014-12-15-rebar-generate-can-not-load-hipe/</loc>
+    <lastmod>2014-12-15T16:50:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/categories/c/</loc>
+    <lastmod>2014-12-06T16:50:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/categories/cocos2dx/</loc>
+    <lastmod>2014-12-06T16:50:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/post/2014-12-06-cocos2dx-lua-md5/</loc>
+    <lastmod>2014-12-06T16:50:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/categories/lua/</loc>
+    <lastmod>2014-12-06T16:50:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/post/2014-01-15-cocos2dx-ccscale9sprite-notice/</loc>
+    <lastmod>2014-01-15T01:01:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/post/2014-01-09-cocos2dx-ccsprite-artifacts/</loc>
+    <lastmod>2014-01-09T03:01:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/post/2014-01-06-set-up-visual-studio-environment-for-c-call-lua-code/</loc>
+    <lastmod>2014-01-06T01:22:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/categories/blog/</loc>
+    <lastmod>2013-09-01T23:59:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://3tgame.github.io/post/2013-09-01-setup-static-blog-use-markdown-and-dropbox/</loc>
+    <lastmod>2013-09-01T23:59:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+</urlset>

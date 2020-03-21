@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tomcat session on 3tgame - find my shadow</title>
+    <link>https://3tgame.github.io/categories/tomcat-session/</link>
+    <description>Recent content in tomcat session on 3tgame - find my shadow</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 13 Apr 2017 16:18:18 +0000</lastBuildDate>
+    
+	<atom:link href="https://3tgame.github.io/categories/tomcat-session/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>在不同服务器共享Session</title>
+      <link>https://3tgame.github.io/post/2017-04-13-share-session-data-between-servers/</link>
+      <pubDate>Thu, 13 Apr 2017 16:18:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2017-04-13-share-session-data-between-servers/</guid>
+      <description>部署负载均衡时，使用一台Nginx作为前端服务器，几台Tomcat作为后端服务器。Nginx根据策略把请求分发给Tomcat服务器。默认To</description>
+    </item>
+    
+  </channel>
+</rss>

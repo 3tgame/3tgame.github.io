@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>惊群 - 3tgame - find my shadow</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xyr" /><meta name="description" content="惊群现象（thundering herd）就是当多个进程和线程在同时阻塞等待同一个事件时，如果这个事件发生，会唤醒所有的进程，但最终只可能有一" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.66.0 with theme even" />
+
+
+<link rel="canonical" href="https://3tgame.github.io/post/2019-08-08-thundering-herd/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="惊群" />
+<meta property="og:description" content="惊群现象（thundering herd）就是当多个进程和线程在同时阻塞等待同一个事件时，如果这个事件发生，会唤醒所有的进程，但最终只可能有一" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://3tgame.github.io/post/2019-08-08-thundering-herd/" />
+<meta property="article:published_time" content="2019-08-08T18:10:18+00:00" />
+<meta property="article:modified_time" content="2019-08-08T18:10:18+00:00" />
+<meta itemprop="name" content="惊群">
+<meta itemprop="description" content="惊群现象（thundering herd）就是当多个进程和线程在同时阻塞等待同一个事件时，如果这个事件发生，会唤醒所有的进程，但最终只可能有一">
+<meta itemprop="datePublished" content="2019-08-08T18:10:18&#43;00:00" />
+<meta itemprop="dateModified" content="2019-08-08T18:10:18&#43;00:00" />
+<meta itemprop="wordCount" content="1434">
+
+
+
+<meta itemprop="keywords" content="Linux," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="惊群"/>
+<meta name="twitter:description" content="惊群现象（thundering herd）就是当多个进程和线程在同时阻塞等待同一个事件时，如果这个事件发生，会唤醒所有的进程，但最终只可能有一"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">3tgame</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">3tgame</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">惊群</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-08-08 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> Linux </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#为什么内核处理accept的惊群但不处理epoll的惊群">为什么内核处理accept()的惊群，但不处理epoll()的惊群？</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>惊群现象（thundering herd）就是当多个进程和线程在同时阻塞等待同一个事件时，如果这个事件发生，会唤醒所有的进程，但最终只可能有一个进程/线程对该事件进行处理，其他进程/线程会在处理失败后重新休眠，这种性能浪费就是惊群。</p>
+<h1 id="accept惊群">accept()惊群</h1>
+<p>主线程创建socket，bind()，listen()后，调用fork()创建多个子进程，在子进程调用accept()，当有客户端连接进来，多个子进程的accept()都会返回，但只有一个子进程的accept()会返回成功，其他子进程的accept()都会返回失败的结果。<br>
+在Linux2.6之后，accept不会引起惊群。内核收到1个客户端连接后，只会唤醒等待队列中第一个进程。</p>
+<h1 id="epoll惊群">epoll()惊群</h1>
+<p>主进程创建socket，bind()，listen()，把该socket加到epoll后，调用fork()创建多个子进程，在子进程调用epoll_wait()，当有客户端连接进来，多个子进程的epoll_wait()会返回，但只有一个子进程的epoll_wait()会返回成功，其他子进程的epoll_wait()都会返回失败的结果：EAGAIN（Resource temporarily unavailable）。<br>
+并不是所有进程都会被唤醒，当某个进程处理完这个IO事件，内核没有这个事件，就不会唤醒其他进程，所以被唤醒的子进程的数量是不固定的。如果在epoll_wait()返回后，且处理事件前，加入代码sleep(2)，则可看到所有子进程都会被唤醒。</p>
+<h2 id="为什么内核处理accept的惊群但不处理epoll的惊群">为什么内核处理accept()的惊群，但不处理epoll()的惊群？</h2>
+<p>accept()只能被一个进程处理。但epoll监听的文件描述符，除了可能被accept()，可能还包括其他网络IO事件。其他网络IO事件是否只由一个进程处理，就不确定。</p>
+<h1 id="线程惊群">线程惊群</h1>
+<p>pthread_cond_broadcast()会唤醒队列上所有线程去处理事件，但只有一个线程会真正获得事件的控制权</p>
+<h1 id="解决惊群的方法">解决惊群的方法</h1>
+<ol>
+<li>在accept前先加锁，获得锁的才accept。Nginx的解决方法：在同一时刻，只有一个nginx worker进程把监听socket加到自己的epoll中。</li>
+<li>Linux内核的3.9版本带来了SO_REUSEPORT特性，该特性支持多个进程或者线程（多个socket）绑定到同一IP、端口。<br>
+优点：在服务器套接字上没有锁的竞争，提高服务器程序的性能。<br>
+在内核层面实现对多个socket的负载均衡：所有reuseport同一个IP地址/端口的套接字会挂在一个链表上，当有连接到来时，用数据包的源IP/源端口作为一个HASH函数的输入，将结果对reuseport套接字数量取模，得到一个索引，该索引指示的数组位置对应的套接字便是工作套接字。<br>
+缺点：由于缺少一致性哈希，当listen socket的数目发生变化（比如新服务上线、已存在服务终止）的时候，根据SO_REUSEPORT的路由算法，在客户端和服务端正在进行三次握手的阶段，最终的ACK可能不能正确送达到对应的socket，导致客户端连接发生Connection Reset，所以有些请求会握手失败。</li>
+<li>liunx 4.5内核在epoll已经新增了EPOLL_EXCLUSIVE选项，在多个进程同时监听同一个socket，只有一个被唤醒。</li>
+</ol>
+<p>参考：<a href="https://cloud.tencent.com/developer/article/1340628">惊群效应 - 云+社区 - 腾讯云</a><br>
+<a href="https://blog.csdn.net/lyztyycode/article/details/78648798">Linux惊群效应详解（最详细的了吧） - lyztyycode的博客 - CSDN博客</a><br>
+<a href="https://pureage.info/2015/12/22/thundering-herd.html">accept与epoll惊群 - 纯真年代</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">xyr</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-08-08
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">Linux</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/2019-08-02-android-app-inside-update/">
+            <span class="next-text nav-default">Android应用内下载并安装apk</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="3tgame/3tgame.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://t.me/ziyouzengzhang" class="iconfont icon-telegram" title="telegram"></a>
+      <a href="https://twitter.com/xunyingren" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/3tgame" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.douban.com/people/32193900/" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://jq.qq.com/?_wv=1027&amp;k=5ggPyQW" class="iconfont icon-pocket" title="pocket"></a>
+  <a href="https://3tgame.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2013 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">xyr</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

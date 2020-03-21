@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>在不同服务器共享Session - 3tgame - find my shadow</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xyr" /><meta name="description" content="部署负载均衡时，使用一台Nginx作为前端服务器，几台Tomcat作为后端服务器。Nginx根据策略把请求分发给Tomcat服务器。默认To" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.66.0 with theme even" />
+
+
+<link rel="canonical" href="https://3tgame.github.io/post/2017-04-13-share-session-data-between-servers/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="在不同服务器共享Session" />
+<meta property="og:description" content="部署负载均衡时，使用一台Nginx作为前端服务器，几台Tomcat作为后端服务器。Nginx根据策略把请求分发给Tomcat服务器。默认To" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://3tgame.github.io/post/2017-04-13-share-session-data-between-servers/" />
+<meta property="article:published_time" content="2017-04-13T16:18:18+00:00" />
+<meta property="article:modified_time" content="2017-04-13T16:18:18+00:00" />
+<meta itemprop="name" content="在不同服务器共享Session">
+<meta itemprop="description" content="部署负载均衡时，使用一台Nginx作为前端服务器，几台Tomcat作为后端服务器。Nginx根据策略把请求分发给Tomcat服务器。默认To">
+<meta itemprop="datePublished" content="2017-04-13T16:18:18&#43;00:00" />
+<meta itemprop="dateModified" content="2017-04-13T16:18:18&#43;00:00" />
+<meta itemprop="wordCount" content="1331">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="在不同服务器共享Session"/>
+<meta name="twitter:description" content="部署负载均衡时，使用一台Nginx作为前端服务器，几台Tomcat作为后端服务器。Nginx根据策略把请求分发给Tomcat服务器。默认To"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">3tgame</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">3tgame</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">在不同服务器共享Session</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-04-13 </span>
+        <div class="post-category">
+            <a href="/categories/tomcat-session/"> tomcat session </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#配置">配置</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>部署负载均衡时，使用一台Nginx作为前端服务器，几台Tomcat作为后端服务器。Nginx根据策略把请求分发给Tomcat服务器。默认Tomcat服务器的session是不可跨服务器共享的，如果同一个用户的不同请求被分发到不同的Tomcat服务器，怎会造成session丢失，要用户重新登录。</p>
+<h1 id="方法1upstream-ip_hash">方法1：upstream ip_hash</h1>
+<p>ip_hash 是根据请求的IP进行分发，对于同一个IP的请求会转发到同一台Tomcat。</p>
+<p>ngxin配置如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">upstream tomcat {
+    server 127.0.0.1:8081 ;
+    server 127.0.0.1:8082 ;
+    ip_hash;
+}
+server {
+    listen       80;
+    server_name  localhost;
+
+    location ~ .*\.(do|jsp|action)?$ {
+    proxy_redirect          off;
+        proxy_set_header        Host            $host;
+        proxy_set_header        X-Real-IP       $remote_addr;
+        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+        root   html;
+        index  index.html index.htm;
+        proxy_pass http://tomcat;
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>生产环境不推荐使用，原因如下：</p>
+<ol>
+<li>Nginx不是最前端的服务器，如还是要Squid作为前端缓存，则Nginx实际是拿Squid服务器的IP，达不到根据客户端请求IP分流的效果。</li>
+<li>有些机构是使用动态IP或有多个出口IP，用户访问会切换IP，则无法将某个用户的请求固定到同一个Tomcat服务器。</li>
+</ol>
+<h1 id="方法2nginx_upstream_jvm_route">方法2：nginx_upstream_jvm_route</h1>
+<p><a href="https://github.com/nulab/nginx-upstream-jvm-route">nginx_upstream_jvm_route</a> 是一个nginx扩展模块，使用cookie实现session黏合。nginx_upstream_jvm_route在用户第一次请求转发到后端server时，会把响应的server标识添加到name为JSESSIONID的cookie中。下一次请求时nginx会根据JSESSIONID决定转发给哪一台后端server。</p>
+<p>Nginx配置如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">upstream  tomcats_jvm_route {
+    server   127.0.0.1:8081 srun_id=tomcat01;
+    server   127.0.0.1:8082 srun_id=tomcat02;
+    jvm_route $cookie_JSESSIONID|sessionid reverse;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>Tomcat的server.xml配置如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;Engine name=&#34;Catalina&#34; defaultHost=&#34;localhost&#34; jvmRoute=&#34;tomcat01&#34;&gt;
+&lt;Engine name=&#34;Catalina&#34; defaultHost=&#34;localhost&#34; jvmRoute=&#34;tomcat02&#34;&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>配置后，请求的name为JSESSIONID的cookie末尾被添加服务器标识，如下：
+JSESSIONID=F8A9463760E0BC88B7919F4C35801E5B.tomcat02;</p>
+<p>生产环境不推荐使用，原因如下：</p>
+<ol>
+<li>根据tomcat的特性，当server.xml配置文件中加了jvmRoute值后，会给sessionid加上jvmRoute值的后缀，根据这一特性，nginx_upstream_jvm_route对每次访问请求中的sessionId的值，自动匹配对应的server。这样就会使得每次都访问到同一个tomcat，这样就解决了访问不同tomcat节点，session发生变化的问题。但是这种方式就会有当一直访问的tomcat节点挂掉之后，根据负载的原理，将会访问其它节点，就会造成session发生变化，需重新登录的问题。</li>
+</ol>
+<h1 id="方法3使用redis共享session">方法3：使用redis共享session</h1>
+<p>以上2种方法都是把Session存储在Tomcat容器内，当请求从1个Tomcat转发到另一个Tomcat，Session就会失效，因为Session在各个Tomcat中不共享。如果使用redis等外服缓存系统存储Session，则可以在各个Tomcat实例间共享Session。</p>
+<p>Java框架使用 <a href="https://github.com/redisson/redisson">redisson</a> 来实现Tomcat Session管理。配置方法，可参见 <a href="https://github.com/redisson/redisson/wiki/14.-Integration-with-frameworks#145-tomcat-redis-session-manager">Tomcat Redis Session Manager</a> 的说明。</p>
+<h2 id="配置">配置</h2>
+<ol>
+<li>编辑 TOMCAT_BASE/conf/context.xml 文件，添加以下内容：
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;Manager className=&#34;org.redisson.tomcat.RedissonSessionManager&#34; configPath=&#34;${catalina.base}/redisson-config.json&#34; /&gt;
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>把 redisson-all-2.8.1.jar 和 redisson-tomcat-7-2.8.1.jar 放到 TOMCAT_BASE/lib 目录。</li>
+<li>按照 <a href="https://github.com/redisson/redisson/wiki/2.-Configuration#262-single-instance-json-yaml-and-spring-xml-config-format">Single instance mode</a> 的说明，编辑 json格式的 redisson-config.json 文件。</li>
+</ol>
+<h1 id="参见">参见</h1>
+<p><a href="http://www.wujianjun.org/2016/03/18/nginx-upstream-jvm-route/">Nginx+tomcat+redis集群之session跟踪（nginx_upstream_jvm_route） - 建均笔记</a></p>
+<p><a href="http://www.wujianjun.org/2016/03/17/tomcat-redis-session/">Nginx+tomcat+redis集群之session共享 - 建均笔记</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">xyr</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2017-04-13
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/2017-04-19-loading-class-of-java-and-tomcat/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Java和Tomcat的类加载</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/2017-04-11-multiple-tomcat-instances-in-one-machine/">
+            <span class="next-text nav-default">同一台机器部署多个Tomcat实例</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="3tgame/3tgame.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://t.me/ziyouzengzhang" class="iconfont icon-telegram" title="telegram"></a>
+      <a href="https://twitter.com/xunyingren" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/3tgame" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.douban.com/people/32193900/" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://jq.qq.com/?_wv=1027&amp;k=5ggPyQW" class="iconfont icon-pocket" title="pocket"></a>
+  <a href="https://3tgame.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2013 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">xyr</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

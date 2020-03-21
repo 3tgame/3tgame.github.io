@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用Postfix搭建邮件服务器 - 3tgame - find my shadow</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xyr" /><meta name="description" content="Linux下搭建邮件服务器，包括用于发送邮件的 Postfix（Postfix 比 Sendmail容易配置、处理更快），用于接收邮件的 Dovec" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.66.0 with theme even" />
+
+
+<link rel="canonical" href="https://3tgame.github.io/post/2017-03-24-email-server-use-postfix/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="使用Postfix搭建邮件服务器" />
+<meta property="og:description" content="Linux下搭建邮件服务器，包括用于发送邮件的 Postfix（Postfix 比 Sendmail容易配置、处理更快），用于接收邮件的 Dovec" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://3tgame.github.io/post/2017-03-24-email-server-use-postfix/" />
+<meta property="article:published_time" content="2017-03-24T17:18:18+00:00" />
+<meta property="article:modified_time" content="2017-03-24T17:18:18+00:00" />
+<meta itemprop="name" content="使用Postfix搭建邮件服务器">
+<meta itemprop="description" content="Linux下搭建邮件服务器，包括用于发送邮件的 Postfix（Postfix 比 Sendmail容易配置、处理更快），用于接收邮件的 Dovec">
+<meta itemprop="datePublished" content="2017-03-24T17:18:18&#43;00:00" />
+<meta itemprop="dateModified" content="2017-03-24T17:18:18&#43;00:00" />
+<meta itemprop="wordCount" content="1999">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用Postfix搭建邮件服务器"/>
+<meta name="twitter:description" content="Linux下搭建邮件服务器，包括用于发送邮件的 Postfix（Postfix 比 Sendmail容易配置、处理更快），用于接收邮件的 Dovec"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">3tgame</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">3tgame</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">使用Postfix搭建邮件服务器</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-03-24 </span>
+        <div class="post-category">
+            <a href="/categories/email-centos/"> email centos </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#邮件服务器的使用权限-etcpostfixaccess">邮件服务器的使用权限 /etc/postfix/access</a></li>
+    <li><a href="#邮件别名-etcaliases">邮件别名 /etc/aliases</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#方法1使用mail工具">方法1：使用mail工具</a></li>
+    <li><a href="#方法2使用telnet">方法2：使用telnet</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#问题1">问题1</a></li>
+    <li><a href="#问题2">问题2</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>Linux下搭建邮件服务器，包括用于发送邮件的 Postfix（Postfix 比 Sendmail容易配置、处理更快），用于接收邮件的 Dovecot，用于使用web页面操作邮件的 Squirrelmail。下文只说明搭建用于发送邮件的Postfix。</p>
+<h1 id="为邮件服务器添加dns解析">为邮件服务器添加DNS解析</h1>
+<p>虽然不加DNS解析也能把邮件发出去，但会被大多数邮件服务器当作垃圾邮件。需要添加三条DNS解析记录：A记录、MX记录、TXT记录，指向邮件服务器所在机器。A记录和MX记录是必须的，填写TXT记录提升发送外域邮件的成功率。</p>
+<p>TXT记录用来保存域名的附加文本信息，TXT记录的内容按照一定的格式编写，最常用的是SPF格式，SPF用于登记某个域名拥有的用来外发邮件的所有ip地址。MX记录的作用是给寄信者指明某个域名的邮件服务器有哪些，SPF格式的TXT记录的作用跟MX记录相反，它向收信者表明，哪些邮件服务器是经过某个域名认可发送邮件的。SPF的作用主要是反垃圾邮件，主要针对那些发信人伪造域名的垃圾邮件。按照SPF格式在DNS中增加一条TXT类型的记录，将提高该域名的信誉度，同时可以防止垃圾邮件伪造该域的发件人发送垃圾邮件。最典型的spf格式的txt记录例子为“v=spf1 a mx ~all”，表示只有这个域名的a记录和mx记录中的ip地址有权限使用这个域名发送邮件。</p>
+<h1 id="安装">安装</h1>
+<pre><code> yum install postfix
+</code></pre>
+<h1 id="配置">配置</h1>
+<p>编辑 /etc/postfix/main.cf 文件，内容如下：</p>
+<pre><code> # 邮件服务器的主机名称，若信件的mail to 字段是该主机名称，且该名称符合mydestination的设定，信件会被该主机收下，否则进行relay判断。
+ myhostname = mail.xxx.com
+ # 主机名称去掉第一部分后的域名。
+ mydomain = xxx.com
+ # 邮件地址@后面的内容，寄信时没有加上mail from字段时，使用这个值。
+ myorigin = $myhostname
+ # Postfix系统监听的网络接口。
+ inet_interfaces = all
+ # Postfix的通讯协定。
+ inet_protocols = ipv4
+ # 能够接收信件的主机名称，mail to字段的值是以下主机名称，才会被这台机器接收。
+ mydestination = $myhostname, $mydomain, localhost.$mydomain, localhost
+ # 信任的用户端，才能进行relay（转递信件到其他邮件服务器）。以下配置信任 本机，局域网内和特定配置的用户。
+ mynetworks = 127.0.0.0/8, 192.168.1.0/24, hash:/etc/postfix/access
+ # 可以relay到下一台MTA主机，以下配置可以转递邮件到 $mydestiantion，qq.com和126.com的邮件服务器。
+ relay_domains = $mydestination, qq.com, 126,com
+ # 邮件别名路径
+ alias_maps = hash:/etc/aliases
+ # 邮件别名资料库路径
+ alias_database = hash:/etc/aliases
+</code></pre>
+<h2 id="邮件服务器的使用权限-etcpostfixaccess">邮件服务器的使用权限 /etc/postfix/access</h2>
+<p>/etc/postfix/access 用于控制relay的用户，一下配置允许 120.114.141.60 和 .edu.cn 域名的用户使用这台机器转递信件，而不允许 192.168.2.0/24 和 ban.com 域名的用户：</p>
+<pre><code> 120.114.141.60      OK
+ .edu.cn                   OK
+ ban.com                 REJECT
+ 192.168.2.              REJECT
+</code></pre>
+<p>使用这个文件控制的好处是不用重启Postfix，只要执行以下命令即可，会生成 /etc/postfix/access.db（特定格式，加快读取配置）。</p>
+<pre><code> postmap hash:/etc/postfix/access
+</code></pre>
+<h2 id="邮件别名-etcaliases">邮件别名 /etc/aliases</h2>
+<p>系统中有很多系统账号，如apache、mysql、nginx等，以这些账号执行的程序有消息产生时，将会以email方式传给谁，因为这些系统账号没有密码登陆，看不到邮件，所以这些系统账号的消息都发送给root。这就是通过 /etc/alias 设置的，内容如下：</p>
+<pre><code> mailer-daemon: postmaster
+ postmaster: root
+ bin: root
+ daemon: root
+</code></pre>
+<p>左边是别名，右边是实际存在的账号或email address。</p>
+<p>也可以用于用于发送群邮件，如发送邮件到student2011这个不存在的账号，邮件会被发送到各个账号，/etc/aliases 配置如下：</p>
+<pre><code> student2011: std001,std002,std003,std004
+</code></pre>
+<p>执行以下命令，生成邮件别名资料库  /etc/aliases.db：</p>
+<pre><code> postalias hash:/etc/aliases
+</code></pre>
+<p>如果对外开放访问邮件服务器，则需要开放25端口：</p>
+<pre><code> iptables -A INPUT -m state --state NEW -m tcp -p tcp --dport 25 -j ACCEPT
+</code></pre>
+<h1 id="启动">启动</h1>
+<pre><code> service postfix start
+</code></pre>
+<p>开机启动</p>
+<pre><code> chkconfig --level 345 postfix on
+</code></pre>
+<h1 id="寄信测试">寄信测试：</h1>
+<h2 id="方法1使用mail工具">方法1：使用mail工具</h2>
+<pre><code> echo &quot;This will go into the body of the mail.&quot; | mail -s &quot;Hello world&quot; xxx@qq.com
+</code></pre>
+<h2 id="方法2使用telnet">方法2：使用telnet</h2>
+<pre><code> telnet localhost smtp
+
+ Trying ::1...
+ Connected to localhost.
+ Escape character is '^]'.
+ 220 server.unixmen.local ESMTP Postfix
+ ehlo localhost                             ## type this command ##
+ 250-server.unixmen.local
+ 250-PIPELINING
+ 250-SIZE 10240000
+ 250-VRFY
+ 250-ETRN
+ 250-ENHANCEDSTATUSCODES
+ 250-8BITMIME
+ 250 DSN
+ mail from:root                             ## Type this - mail sender address##
+ 250 2.1.0 Ok
+ rcpt to:xxx.qq.com                         ## Type this - mail receiver address ##
+ 250 2.1.5 Ok
+ data                                       ## Type this to input email message ##
+ 354 End data with &lt;CR&gt;&lt;LF&gt;.&lt;CR&gt;&lt;LF&gt;
+ welcome to unixmen mail server             ## Enter the boddy of the email ##
+ .                                          ## type dot (.) to complete message ##
+ 250 2.0.0 Ok: queued as B822221522
+ quit                                       ## type this to quit from mail ##
+ 221 2.0.0 Bye
+ Connection closed by foreign host.
+</code></pre>
+<p>可从日志文件 /var/log/maillog 查看错误信息，排查原因。</p>
+<h1 id="其他">其他</h1>
+<h2 id="问题1">问题1</h2>
+<p>使用以下命令发送邮件，提示“send-mail: Cannot open mail:25”</p>
+<pre><code> echo &quot;This will go into the body of the mail.&quot; | mail -s &quot;Hello world&quot; xxx@qq.com
+</code></pre>
+<p>原因：错误提示 表示打开到服务器mail的25端口，也是因为没有修改mail 配置</p>
+<p>解决：修改 mail 客户端配置文件 /etc/ssmtp/ssmtp.conf 如下：</p>
+<pre><code> mailhub=localhost
+</code></pre>
+<h2 id="问题2">问题2</h2>
+<p>执行  postmap hash:/etc/postfix/access ，提示“postmap: /usr/local/mysql/lib/libmysqlclient.so.18: no version information available (required by postmap) ”</p>
+<p>原因：执行 locate mysqlclient |xargs ls -lha ，输出</p>
+<pre><code> lrwxrwxrwx  1 root root    20 3月  21 14:39 /usr/lib64/mysql/libmysqlclient_r.so.18 -&gt; libmysqlclient.so.18
+ lrwxrwxrwx  1 root root    24 3月  21 14:39 /usr/lib64/mysql/libmysqlclient_r.so.18.1.0 -&gt; libmysqlclient.so.18.1.0
+ lrwxrwxrwx  1 root root    24 3月  21 14:39 /usr/lib64/mysql/libmysqlclient.so.18 -&gt; libmysqlclient.so.18.1.0
+ -rwxr-xr-x  1 root root  9.2M 11月 29 07:12 /usr/lib64/mysql/libmysqlclient.so.18.1.0
+ lrwxrwxrwx. 1 root mysql   17 10月 15 2015 /usr/local/mysql/lib/libmysqlclient_r.so -&gt; libmysqlclient.so
+ lrwxrwxrwx. 1 root mysql   20 10月 15 2015 /usr/local/mysql/lib/libmysqlclient_r.so.18 -&gt; libmysqlclient.so.18
+ lrwxrwxrwx. 1 root mysql   24 10月 15 2015 /usr/local/mysql/lib/libmysqlclient_r.so.18.0.0 -&gt; libmysqlclient.so.18.0.0
+ lrwxrwxrwx. 1 root mysql   20 10月 15 2015 /usr/local/mysql/lib/libmysqlclient.so -&gt; libmysqlclient.so.18
+ lrwxrwxrwx. 1 root mysql   24 10月 15 2015 /usr/local/mysql/lib/libmysqlclient.so.18 -&gt; libmysqlclient.so.18.0.0
+ -rwxr-xr-x  1 root mysql 6.9M 10月 15 2015 /usr/local/mysql/lib/libmysqlclient.so.18.0.0
+</code></pre>
+<p>因为 postmap 需要的libmysqlclient版本与 使用libmysqlclient 不一致。</p>
+<p>解决：编辑 /etc/ld.so.conf，把 /usr/local/mysql/lib/mysql 加到最前面，执行 ldconfig。</p>
+<h1 id="参见">参见</h1>
+<p><a href="http://linux.vbird.org/linux_server/0380mail.php#postfix">鳥哥的 Linux 私房菜 &ndash; Mail Server</a></p>
+<p><a href="https://www.digitalocean.com/community/tutorials/how-to-install-postfix-on-centos-6">How To Install Postfix on CentOS 6 &ndash; DigitalOcean</a></p>
+<p><a href="https://www.unixmen.com/install-postfix-mail-server-with-dovecot-and-squirrelmail-on-centos-6-4/">Setup Local Mail Server Using Postfix, Dovecot And Squirrelmail On CentOS 6.5/6.4 &ndash; Unixmen</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">xyr</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2017-03-24
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/2017-03-28-use-qqmail-to-send-mail-on-linux/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Linux使用QQ企业邮箱服务器发送邮件</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/2017-03-22-npm-dependencies-use-git-repository/">
+            <span class="next-text nav-default">npm dependencies 使用Git仓库</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="3tgame/3tgame.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://t.me/ziyouzengzhang" class="iconfont icon-telegram" title="telegram"></a>
+      <a href="https://twitter.com/xunyingren" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/3tgame" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.douban.com/people/32193900/" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://jq.qq.com/?_wv=1027&amp;k=5ggPyQW" class="iconfont icon-pocket" title="pocket"></a>
+  <a href="https://3tgame.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2013 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">xyr</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

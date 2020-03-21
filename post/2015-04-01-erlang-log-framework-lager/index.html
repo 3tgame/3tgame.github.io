@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Erlang 日志框架lager的使用 - 3tgame - find my shadow</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xyr" /><meta name="description" content="介绍 lager 是一个Erlang 日志框架，github地址为 https://github.com/basho/lager。 特性为：支持分日志级别；按" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.66.0 with theme even" />
+
+
+<link rel="canonical" href="https://3tgame.github.io/post/2015-04-01-erlang-log-framework-lager/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Erlang 日志框架lager的使用" />
+<meta property="og:description" content="介绍 lager 是一个Erlang 日志框架，github地址为 https://github.com/basho/lager。 特性为：支持分日志级别；按" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://3tgame.github.io/post/2015-04-01-erlang-log-framework-lager/" />
+<meta property="article:published_time" content="2015-04-01T21:30:18+00:00" />
+<meta property="article:modified_time" content="2015-04-01T21:30:18+00:00" />
+<meta itemprop="name" content="Erlang 日志框架lager的使用">
+<meta itemprop="description" content="介绍 lager 是一个Erlang 日志框架，github地址为 https://github.com/basho/lager。 特性为：支持分日志级别；按">
+<meta itemprop="datePublished" content="2015-04-01T21:30:18&#43;00:00" />
+<meta itemprop="dateModified" content="2015-04-01T21:30:18&#43;00:00" />
+<meta itemprop="wordCount" content="465">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Erlang 日志框架lager的使用"/>
+<meta name="twitter:description" content="介绍 lager 是一个Erlang 日志框架，github地址为 https://github.com/basho/lager。 特性为：支持分日志级别；按"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">3tgame</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">3tgame</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Erlang 日志框架lager的使用</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2015-04-01 </span>
+        <div class="post-category">
+            <a href="/categories/erlang/"> Erlang </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-lagerlevelmsg-format">1. lager:Level(Msg, Format)).</a></li>
+    <li><a href="#2-lagerloglevel-pidselfmodule-moduleline-line-format-msg">2. lager:log(Level, [{pid,self()},{module, ?MODULE},{line, ?LINE}], Format, Msg)).</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#显示所有日志级别和追踪">显示所有日志级别和追踪</a></li>
+    <li><a href="#追踪特定模块特定函数的日志">追踪特定模块特定函数的日志：</a></li>
+    <li><a href="#追踪特定进程的日志">追踪特定进程的日志：</a></li>
+    <li><a href="#清除追踪使用-stop_trace">清除追踪，使用 stop_trace：</a></li>
+    <li><a href="#停止所有trace">停止所有trace</a></li>
+    <li><a href="#根据属性重定向日志">根据属性重定向日志</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="介绍">介绍</h1>
+<p>lager 是一个Erlang 日志框架，github地址为 <a href="https://github.com/basho/lager">https://github.com/basho/lager</a>。
+特性为：支持分日志级别；按特定时间、日志文件大小滚动日志文件；终端以不同颜色输出信息；日志信息包含模块、函数、行号、进程号信息。</p>
+<h1 id="启动lager应用">启动lager应用</h1>
+<p>在 server_app.erl 中 执行 lager:start().</p>
+<h1 id="支持的日志级别">支持的日志级别</h1>
+<p>从上到下，级别递增。设置日志级为特定级别，会把该级别及以上级别的日志输出。</p>
+<pre><code>debug
+info
+notice
+warning
+error
+critical
+alert
+emergency
+</code></pre>
+<h1 id="运行时改变日志级别">运行时改变日志级别</h1>
+<pre><code>lager:set_loglevel(lager_console_backend, debug).
+lager:set_loglevel(lager_file_backend, &quot;console.log&quot;, debug).
+</code></pre>
+<h1 id="记录日志">记录日志</h1>
+<p>如记录Level级别的日志，有2种方式</p>
+<h2 id="1-lagerlevelmsg-format">1. lager:Level(Msg, Format)).</h2>
+<p>这种需要 在编译选项中，增加
+{erl_opts, [
+{parse_transform, lager_transform},
+]}.</p>
+<p>输出日志为：</p>
+<pre><code>2015-04-01 20:59:16.024 [info] &lt;0.151.0&gt;@server_reader:get_socket_data:102 send data reply ok
+</code></pre>
+<h2 id="2-lagerloglevel-pidselfmodule-moduleline-line-format-msg">2. lager:log(Level, [{pid,self()},{module, ?MODULE},{line, ?LINE}], Format, Msg)).</h2>
+<p>这种方式不需要加 {parse_transform, lager_transform} 编译选项。</p>
+<h1 id="配置日志文件存放的根目录">配置日志文件存放的根目录</h1>
+<p>{lager, [
+{log_root, &ldquo;/var/log/hello&rdquo;}
+]}.</p>
+<h1 id="追踪可用于根据日志调试">追踪（可用于根据日志调试）</h1>
+<h2 id="显示所有日志级别和追踪">显示所有日志级别和追踪</h2>
+<pre><code>lager:status().
+</code></pre>
+<h2 id="追踪特定模块特定函数的日志">追踪特定模块特定函数的日志：</h2>
+<pre><code>lager:trace_file(&quot;log/trace.log&quot;, [{module, mymodule}, {function, myfunction}], warning).
+</code></pre>
+<h2 id="追踪特定进程的日志">追踪特定进程的日志：</h2>
+<pre><code>lager:trace_console([{pid, &quot;&lt;0.410.0&gt;&quot;}]).
+</code></pre>
+<p>注意：不能使用 lager:log(debug, Format, Msg), 而应使用 lager:debug(Format, Msg)，否则根据PID会追踪不到。</p>
+<h2 id="清除追踪使用-stop_trace">清除追踪，使用 stop_trace：</h2>
+<pre><code>{ok, Trace} = lager:trace_file(&quot;log/error.log&quot;, [{module, mymodule}]),
+lager:stop_trace(Trace).
+</code></pre>
+<h2 id="停止所有trace">停止所有trace</h2>
+<pre><code>lager:clear_all_traces().
+</code></pre>
+<h2 id="根据属性重定向日志">根据属性重定向日志</h2>
+<pre><code>lager:warning([{request, RequestID},{vhost, Vhost}], &quot;Permission denied to ~s&quot;, [User]).
+</code></pre>
+<p>现可根据这些额外属性进行追踪
+lager:trace_console([{request, &lsquo;&gt;&rsquo;, 117}, {request, &lsquo;&lt;&rsquo;, 120}]).</p>
+<p>参见：</p>
+<p><a href="https://github.com/basho/lager">basho/lager</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">xyr</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2015-04-01
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/2015-04-13-nginx-cant-access-file-when-centos-upgrade-to-6.6/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Centos升级到6.6，请求网页，Nginx提示原来没有的错误</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/2015-03-31-use-intellij-idea-to-debug-erlang-otp-apps/">
+            <span class="next-text nav-default">使用Intellij IDEA 调试 Erlang OTP应用</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="3tgame/3tgame.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://t.me/ziyouzengzhang" class="iconfont icon-telegram" title="telegram"></a>
+      <a href="https://twitter.com/xunyingren" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/3tgame" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.douban.com/people/32193900/" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://jq.qq.com/?_wv=1027&amp;k=5ggPyQW" class="iconfont icon-pocket" title="pocket"></a>
+  <a href="https://3tgame.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2013 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">xyr</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

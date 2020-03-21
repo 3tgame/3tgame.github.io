@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Erlang on 3tgame - find my shadow</title>
+    <link>https://3tgame.github.io/categories/erlang/</link>
+    <description>Recent content in Erlang on 3tgame - find my shadow</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 16 May 2015 18:18:18 +0000</lastBuildDate>
+    
+	<atom:link href="https://3tgame.github.io/categories/erlang/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Socket 被动模式和delay_send结合使用的注意点</title>
+      <link>https://3tgame.github.io/post/2015-05-16-notice-on-socket-passive-mode-and-delay_send/</link>
+      <pubDate>Sat, 16 May 2015 18:18:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2015-05-16-notice-on-socket-passive-mode-and-delay_send/</guid>
+      <description>问题 使用init:stop()方式结束节点的时候就不能正常结束 出现条件 启动服务器后，没有客户端连接上来，马上使用init:stop()，可以</description>
+    </item>
+    
+    <item>
+      <title>Eralng ETS消失</title>
+      <link>https://3tgame.github.io/post/2015-05-13-erlang-ets-disappear/</link>
+      <pubDate>Wed, 13 May 2015 18:08:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2015-05-13-erlang-ets-disappear/</guid>
+      <description>问题1 使用-remsh连接到节点，重新装载配置数据（会创建ETS)，结束后，发现存放配置数据的ETS不见了。 原因 ETS虽不会参与GC，但当调</description>
+    </item>
+    
+    <item>
+      <title>在Windows下使用图形化界面查看Linux节点信息</title>
+      <link>https://3tgame.github.io/post/2015-05-12-observer-linux-node-with-gui-at-windows/</link>
+      <pubDate>Tue, 12 May 2015 21:08:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2015-05-12-observer-linux-node-with-gui-at-windows/</guid>
+      <description>步骤1 在Linux下启动节点 注意使用long name(xxx@计算机名或ip)形式 erl -name linux@192.168.1.136 -setcookie server 步骤2 启动Erlang应用程序 点击 开始 -&amp;gt; 所有程序</description>
+    </item>
+    
+    <item>
+      <title>Erlang 日志框架lager的使用</title>
+      <link>https://3tgame.github.io/post/2015-04-01-erlang-log-framework-lager/</link>
+      <pubDate>Wed, 01 Apr 2015 21:30:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2015-04-01-erlang-log-framework-lager/</guid>
+      <description>介绍 lager 是一个Erlang 日志框架，github地址为 https://github.com/basho/lager。 特性为：支持分日志级别；按</description>
+    </item>
+    
+    <item>
+      <title>使用Intellij IDEA 调试 Erlang OTP应用</title>
+      <link>https://3tgame.github.io/post/2015-03-31-use-intellij-idea-to-debug-erlang-otp-apps/</link>
+      <pubDate>Tue, 31 Mar 2015 18:30:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2015-03-31-use-intellij-idea-to-debug-erlang-otp-apps/</guid>
+      <description>方法 按照 Using Intellij IDEA to write and debug Erlang code 里介绍的方法可调试OTP应用。 注意要创建1个不会停止的代理文件，才可调试OTP应用。 {% highlight erlang %} -module(server). %% -export([]). -export([debug/0]). loop_sleep() -&amp;gt; timer:sleep(5000), loop_sleep(). debug() -&amp;gt; %%</description>
+    </item>
+    
+    <item>
+      <title>cannot load hipe，不能启动使用rebar generate产生的release</title>
+      <link>https://3tgame.github.io/post/2014-12-15-rebar-generate-can-not-load-hipe/</link>
+      <pubDate>Mon, 15 Dec 2014 16:50:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2014-12-15-rebar-generate-can-not-load-hipe/</guid>
+      <description>HiPE是High-Performance Erlang的缩写，HiPE使用即时编译技术可提高Erlang程序的运行效率。使用 rebar generate 发布应用后，</description>
+    </item>
+    
+  </channel>
+</rss>

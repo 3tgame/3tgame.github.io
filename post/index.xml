@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on 3tgame - find my shadow</title>
+    <link>https://3tgame.github.io/post/</link>
+    <description>Recent content in Posts on 3tgame - find my shadow</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 08 Aug 2019 18:10:18 +0000</lastBuildDate>
+    
+	<atom:link href="https://3tgame.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>惊群</title>
+      <link>https://3tgame.github.io/post/2019-08-08-thundering-herd/</link>
+      <pubDate>Thu, 08 Aug 2019 18:10:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2019-08-08-thundering-herd/</guid>
+      <description>惊群现象（thundering herd）就是当多个进程和线程在同时阻塞等待同一个事件时，如果这个事件发生，会唤醒所有的进程，但最终只可能有一</description>
+    </item>
+    
+    <item>
+      <title>Android应用内下载并安装apk</title>
+      <link>https://3tgame.github.io/post/2019-08-02-android-app-inside-update/</link>
+      <pubDate>Fri, 02 Aug 2019 16:10:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2019-08-02-android-app-inside-update/</guid>
+      <description>FileProvider Android 7 开始，不允许使用 file://URI 访问其他应用的私有目录文件，如调起系统安装器使用 file://URI来安装一个Apk。解决方法是：通过FilePro</description>
+    </item>
+    
+    <item>
+      <title>浏览器出现Status为canceled的请求</title>
+      <link>https://3tgame.github.io/post/2017-06-16-canceled_status_request/</link>
+      <pubDate>Thu, 15 Jun 2017 16:18:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2017-06-16-canceled_status_request/</guid>
+      <description>问题 使用微信授权登录后出现没有登录成功的问题，使用微信开发者工具，查看HTTP请求，发现有一个请求被cancel掉，如下所示 查看请求详细信息</description>
+    </item>
+    
+    <item>
+      <title>Java和Tomcat的类加载</title>
+      <link>https://3tgame.github.io/post/2017-04-19-loading-class-of-java-and-tomcat/</link>
+      <pubDate>Wed, 19 Apr 2017 16:18:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2017-04-19-loading-class-of-java-and-tomcat/</guid>
+      <description>Java的类加载 类从被加载到虚拟机内存中开始，到卸载出内存为止，它的整个生命周期包括：加载、验证、准备、解析、初始化、使用和卸载七个阶段。 J</description>
+    </item>
+    
+    <item>
+      <title>在不同服务器共享Session</title>
+      <link>https://3tgame.github.io/post/2017-04-13-share-session-data-between-servers/</link>
+      <pubDate>Thu, 13 Apr 2017 16:18:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2017-04-13-share-session-data-between-servers/</guid>
+      <description>部署负载均衡时，使用一台Nginx作为前端服务器，几台Tomcat作为后端服务器。Nginx根据策略把请求分发给Tomcat服务器。默认To</description>
+    </item>
+    
+    <item>
+      <title>同一台机器部署多个Tomcat实例</title>
+      <link>https://3tgame.github.io/post/2017-04-11-multiple-tomcat-instances-in-one-machine/</link>
+      <pubDate>Tue, 11 Apr 2017 16:18:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2017-04-11-multiple-tomcat-instances-in-one-machine/</guid>
+      <description>如果需要在同一台机器上安装多个Tomcat，如给不同开发人员使用，或部署开发、测试、生产环境、或者用于测试负载均衡，可在一台机器上部署多个T</description>
+    </item>
+    
+    <item>
+      <title>Linux使用QQ企业邮箱服务器发送邮件</title>
+      <link>https://3tgame.github.io/post/2017-03-28-use-qqmail-to-send-mail-on-linux/</link>
+      <pubDate>Tue, 28 Mar 2017 14:18:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2017-03-28-use-qqmail-to-send-mail-on-linux/</guid>
+      <description>发送邮件可通过sentmail或postfix服务转发邮件，但如果只需要发送邮件，没必要再搭建邮件服务。直接使用外部STMP服务发送邮件。本</description>
+    </item>
+    
+    <item>
+      <title>使用Postfix搭建邮件服务器</title>
+      <link>https://3tgame.github.io/post/2017-03-24-email-server-use-postfix/</link>
+      <pubDate>Fri, 24 Mar 2017 17:18:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2017-03-24-email-server-use-postfix/</guid>
+      <description>Linux下搭建邮件服务器，包括用于发送邮件的 Postfix（Postfix 比 Sendmail容易配置、处理更快），用于接收邮件的 Dovec</description>
+    </item>
+    
+    <item>
+      <title>npm dependencies 使用Git仓库</title>
+      <link>https://3tgame.github.io/post/2017-03-22-npm-dependencies-use-git-repository/</link>
+      <pubDate>Wed, 22 Mar 2017 17:10:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2017-03-22-npm-dependencies-use-git-repository/</guid>
+      <description>Git仓库，可以是自己建的，可以是Github仓库，本文以Coding.net仓库为例。 因为 package.json 里的 dependencise，是使用npm install 执</description>
+    </item>
+    
+    <item>
+      <title>IE9跨域发送POST请求，服务端获取不到POST参数</title>
+      <link>https://3tgame.github.io/post/2017-03-10-server-cannot-get-post-parameters-from-ie9s-cors-request/</link>
+      <pubDate>Fri, 10 Mar 2017 15:30:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2017-03-10-server-cannot-get-post-parameters-from-ie9s-cors-request/</guid>
+      <description>服务端写日志打印POST参数 如使用PHP框架，则可使用 error_log(print_r($_POST, true)); 打印请求POST参数。 使用 error_log(file_get_contents(&amp;quot;php://input&amp;quot;)); 打印请求body。 使用IE9发送跨域POST请求 打开I</description>
+    </item>
+    
+    <item>
+      <title>使用Dnsmasq作为内部DNS服务器，用于域名针对内外网返回不同IP</title>
+      <link>https://3tgame.github.io/post/2015-08-03-setup-dnsmasq-as-local-dns-server/</link>
+      <pubDate>Mon, 03 Aug 2015 17:10:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2015-08-03-setup-dnsmasq-as-local-dns-server/</guid>
+      <description>需求 内网测试时，需要某个域名指向某台内网机器，在电脑上，可修改host。对于手机等不方面改host的情况，或觉得每个人都要修改本地host不</description>
+    </item>
+    
+    <item>
+      <title>Socket 被动模式和delay_send结合使用的注意点</title>
+      <link>https://3tgame.github.io/post/2015-05-16-notice-on-socket-passive-mode-and-delay_send/</link>
+      <pubDate>Sat, 16 May 2015 18:18:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2015-05-16-notice-on-socket-passive-mode-and-delay_send/</guid>
+      <description>问题 使用init:stop()方式结束节点的时候就不能正常结束 出现条件 启动服务器后，没有客户端连接上来，马上使用init:stop()，可以</description>
+    </item>
+    
+    <item>
+      <title>Eralng ETS消失</title>
+      <link>https://3tgame.github.io/post/2015-05-13-erlang-ets-disappear/</link>
+      <pubDate>Wed, 13 May 2015 18:08:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2015-05-13-erlang-ets-disappear/</guid>
+      <description>问题1 使用-remsh连接到节点，重新装载配置数据（会创建ETS)，结束后，发现存放配置数据的ETS不见了。 原因 ETS虽不会参与GC，但当调</description>
+    </item>
+    
+    <item>
+      <title>在Windows下使用图形化界面查看Linux节点信息</title>
+      <link>https://3tgame.github.io/post/2015-05-12-observer-linux-node-with-gui-at-windows/</link>
+      <pubDate>Tue, 12 May 2015 21:08:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2015-05-12-observer-linux-node-with-gui-at-windows/</guid>
+      <description>步骤1 在Linux下启动节点 注意使用long name(xxx@计算机名或ip)形式 erl -name linux@192.168.1.136 -setcookie server 步骤2 启动Erlang应用程序 点击 开始 -&amp;gt; 所有程序</description>
+    </item>
+    
+    <item>
+      <title>Centos升级到6.6，请求网页，Nginx提示原来没有的错误</title>
+      <link>https://3tgame.github.io/post/2015-04-13-nginx-cant-access-file-when-centos-upgrade-to-6.6/</link>
+      <pubDate>Mon, 13 Apr 2015 14:30:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2015-04-13-nginx-cant-access-file-when-centos-upgrade-to-6.6/</guid>
+      <description>问题1 请求 http://debug.wxhl.qijian.com/pay.html，Nginx错误日志提示 ==&amp;gt; /var/log/nginx/error.log &amp;lt;== 2015/04/13 15:39:10 [error] 10704#0: *28 open() &amp;ldquo;/data/wxhl/web/debug/pay.html&amp;rdquo; failed (13: Permission denied), client: 192.168.1.114,</description>
+    </item>
+    
+    <item>
+      <title>Erlang 日志框架lager的使用</title>
+      <link>https://3tgame.github.io/post/2015-04-01-erlang-log-framework-lager/</link>
+      <pubDate>Wed, 01 Apr 2015 21:30:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2015-04-01-erlang-log-framework-lager/</guid>
+      <description>介绍 lager 是一个Erlang 日志框架，github地址为 https://github.com/basho/lager。 特性为：支持分日志级别；按</description>
+    </item>
+    
+    <item>
+      <title>使用Intellij IDEA 调试 Erlang OTP应用</title>
+      <link>https://3tgame.github.io/post/2015-03-31-use-intellij-idea-to-debug-erlang-otp-apps/</link>
+      <pubDate>Tue, 31 Mar 2015 18:30:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2015-03-31-use-intellij-idea-to-debug-erlang-otp-apps/</guid>
+      <description>方法 按照 Using Intellij IDEA to write and debug Erlang code 里介绍的方法可调试OTP应用。 注意要创建1个不会停止的代理文件，才可调试OTP应用。 {% highlight erlang %} -module(server). %% -export([]). -export([debug/0]). loop_sleep() -&amp;gt; timer:sleep(5000), loop_sleep(). debug() -&amp;gt; %%</description>
+    </item>
+    
+    <item>
+      <title>打开腾讯通RTX管理器提示选择数据源</title>
+      <link>https://3tgame.github.io/post/2015-01-17-rtx-manager-warn-to-choose-datasource/</link>
+      <pubDate>Sat, 17 Jan 2015 12:30:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2015-01-17-rtx-manager-warn-to-choose-datasource/</guid>
+      <description>问题：双击 RTX管理器，弹出窗口提示选择数据源。 查看 配置 D:\Program Files (x86)\Tencent\RTXServer\Config\rtxserver</description>
+    </item>
+    
+    <item>
+      <title>使用 wireshark 和 tcpdump 实时抓取Android的包</title>
+      <link>https://3tgame.github.io/post/2015-01-06-use-wireshark-tcpdump-capture-android-packet/</link>
+      <pubDate>Tue, 06 Jan 2015 11:10:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2015-01-06-use-wireshark-tcpdump-capture-android-packet/</guid>
+      <description>下载可运行在Android上的tcpdump 从 USB Sniffing with tcpdump - OMAPpedia 下载编译好的tcpdump， Pre-compiled binaries 上传tcpdump到Android机器上 adb push tcpdump /data/local/tcpdump 如</description>
+    </item>
+    
+    <item>
+      <title>心跳包</title>
+      <link>https://3tgame.github.io/post/2014-12-26-heartbeat-packet/</link>
+      <pubDate>Fri, 26 Dec 2014 17:10:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2014-12-26-heartbeat-packet/</guid>
+      <description>一方突然关掉电源、防火墙切断不活跃连接、网络出现问题，都可导致一方掉线，另一端如没有发送数据，不会知道该情况。 有2种方法处理上述问题 1、TC</description>
+    </item>
+    
+    <item>
+      <title>cannot load hipe，不能启动使用rebar generate产生的release</title>
+      <link>https://3tgame.github.io/post/2014-12-15-rebar-generate-can-not-load-hipe/</link>
+      <pubDate>Mon, 15 Dec 2014 16:50:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2014-12-15-rebar-generate-can-not-load-hipe/</guid>
+      <description>HiPE是High-Performance Erlang的缩写，HiPE使用即时编译技术可提高Erlang程序的运行效率。使用 rebar generate 发布应用后，</description>
+    </item>
+    
+    <item>
+      <title>Cocos2dx 增加Lua MD5扩展</title>
+      <link>https://3tgame.github.io/post/2014-12-06-cocos2dx-lua-md5/</link>
+      <pubDate>Sat, 06 Dec 2014 16:50:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2014-12-06-cocos2dx-lua-md5/</guid>
+      <description>我们使用的Lua MD5扩展 是 MD5: Cryptographic Library for Lua，是1个用C语言实现的扩展。构建、安装该扩展的方法，在其页面都有介绍。不过，这里我不是使用其主页上</description>
+    </item>
+    
+    <item>
+      <title>CCScale9Sprite 不支持含透明像素的图片的缩放</title>
+      <link>https://3tgame.github.io/post/2014-01-15-cocos2dx-ccscale9sprite-notice/</link>
+      <pubDate>Wed, 15 Jan 2014 01:01:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2014-01-15-cocos2dx-ccscale9sprite-notice/</guid>
+      <description>kongbai.png是包含20*20个透明像素的图片，使用TexturePacker打包后，在最终纹理那里只有1*1个像素。 使用 local img = CCScale9Sprite::createWithSpriteFrameName(&amp;ldquo;base/kongbai.png&amp;rdquo;, CCRect(10,10,1,1));</description>
+    </item>
+    
+    <item>
+      <title>地图出现黑线、图片边缘被切掉、图片模糊的原因及解决方法</title>
+      <link>https://3tgame.github.io/post/2014-01-09-cocos2dx-ccsprite-artifacts/</link>
+      <pubDate>Thu, 09 Jan 2014 03:01:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2014-01-09-cocos2dx-ccsprite-artifacts/</guid>
+      <description>一、地图出现黑线 原因、解决方法 可参看 How To Fix Artifacts With Cocos2D。 原因 绘制时某些拷贝操作失败而导致拷贝了隔壁其他Sprite的某一部分，导致出现</description>
+    </item>
+    
+    <item>
+      <title>在Visual Studio中配置环境，用于C代码调用Lua代码</title>
+      <link>https://3tgame.github.io/post/2014-01-06-set-up-visual-studio-environment-for-c-call-lua-code/</link>
+      <pubDate>Mon, 06 Jan 2014 01:22:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2014-01-06-set-up-visual-studio-environment-for-c-call-lua-code/</guid>
+      <description>一、使用安装LuaForWindow后的库文件 该方法不支持调试lua.lib的C代码 参见 [lua的VS或者VC环境的搭建调试] (http://blog.csdn.net/pbymw8iwm/article/details/8191947) 步骤： 安装L</description>
+    </item>
+    
+    <item>
+      <title>使用Markdown和DropBox第3方服务搭建静态博客</title>
+      <link>https://3tgame.github.io/post/2013-09-01-setup-static-blog-use-markdown-and-dropbox/</link>
+      <pubDate>Sun, 01 Sep 2013 23:59:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2013-09-01-setup-static-blog-use-markdown-and-dropbox/</guid>
+      <description>注册Scriptogr服务 到Scriptogr.am注册服务。注册完成会在Dropbox目录下创建目录**_应用/scriptogram_*</description>
+    </item>
+    
+  </channel>
+</rss>

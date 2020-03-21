@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>C on 3tgame - find my shadow</title>
+    <link>https://3tgame.github.io/categories/c/</link>
+    <description>Recent content in C on 3tgame - find my shadow</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 06 Dec 2014 16:50:18 +0000</lastBuildDate>
+    
+	<atom:link href="https://3tgame.github.io/categories/c/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>在Visual Studio中配置环境，用于C代码调用Lua代码</title>
+      <link>https://3tgame.github.io/post/2014-01-06-set-up-visual-studio-environment-for-c-call-lua-code/</link>
+      <pubDate>Mon, 06 Jan 2014 01:22:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2014-01-06-set-up-visual-studio-environment-for-c-call-lua-code/</guid>
+      <description>一、使用安装LuaForWindow后的库文件 该方法不支持调试lua.lib的C代码 参见 [lua的VS或者VC环境的搭建调试] (http://blog.csdn.net/pbymw8iwm/article/details/8191947) 步骤： 安装L</description>
+    </item>
+    
+  </channel>
+</rss>

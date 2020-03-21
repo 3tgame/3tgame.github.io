@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Android on 3tgame - find my shadow</title>
+    <link>https://3tgame.github.io/categories/android/</link>
+    <description>Recent content in Android on 3tgame - find my shadow</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 02 Aug 2019 16:10:18 +0000</lastBuildDate>
+    
+	<atom:link href="https://3tgame.github.io/categories/android/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Android应用内下载并安装apk</title>
+      <link>https://3tgame.github.io/post/2019-08-02-android-app-inside-update/</link>
+      <pubDate>Fri, 02 Aug 2019 16:10:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2019-08-02-android-app-inside-update/</guid>
+      <description>FileProvider Android 7 开始，不允许使用 file://URI 访问其他应用的私有目录文件，如调起系统安装器使用 file://URI来安装一个Apk。解决方法是：通过FilePro</description>
+    </item>
+    
+    <item>
+      <title>使用 wireshark 和 tcpdump 实时抓取Android的包</title>
+      <link>https://3tgame.github.io/post/2015-01-06-use-wireshark-tcpdump-capture-android-packet/</link>
+      <pubDate>Tue, 06 Jan 2015 11:10:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2015-01-06-use-wireshark-tcpdump-capture-android-packet/</guid>
+      <description>下载可运行在Android上的tcpdump 从 USB Sniffing with tcpdump - OMAPpedia 下载编译好的tcpdump， Pre-compiled binaries 上传tcpdump到Android机器上 adb push tcpdump /data/local/tcpdump 如</description>
+    </item>
+    
+  </channel>
+</rss>

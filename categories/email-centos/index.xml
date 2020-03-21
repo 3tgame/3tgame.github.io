@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>email centos on 3tgame - find my shadow</title>
+    <link>https://3tgame.github.io/categories/email-centos/</link>
+    <description>Recent content in email centos on 3tgame - find my shadow</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 28 Mar 2017 14:18:18 +0000</lastBuildDate>
+    
+	<atom:link href="https://3tgame.github.io/categories/email-centos/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Linux使用QQ企业邮箱服务器发送邮件</title>
+      <link>https://3tgame.github.io/post/2017-03-28-use-qqmail-to-send-mail-on-linux/</link>
+      <pubDate>Tue, 28 Mar 2017 14:18:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2017-03-28-use-qqmail-to-send-mail-on-linux/</guid>
+      <description>发送邮件可通过sentmail或postfix服务转发邮件，但如果只需要发送邮件，没必要再搭建邮件服务。直接使用外部STMP服务发送邮件。本</description>
+    </item>
+    
+    <item>
+      <title>使用Postfix搭建邮件服务器</title>
+      <link>https://3tgame.github.io/post/2017-03-24-email-server-use-postfix/</link>
+      <pubDate>Fri, 24 Mar 2017 17:18:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2017-03-24-email-server-use-postfix/</guid>
+      <description>Linux下搭建邮件服务器，包括用于发送邮件的 Postfix（Postfix 比 Sendmail容易配置、处理更快），用于接收邮件的 Dovec</description>
+    </item>
+    
+  </channel>
+</rss>

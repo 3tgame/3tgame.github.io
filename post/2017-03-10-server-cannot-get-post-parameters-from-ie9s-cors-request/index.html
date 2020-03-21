@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>IE9跨域发送POST请求，服务端获取不到POST参数 - 3tgame - find my shadow</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xyr" /><meta name="description" content="服务端写日志打印POST参数 如使用PHP框架，则可使用 error_log(print_r($_POST, true)); 打印请求POST参数。 使用 error_log(file_get_contents(&amp;quot;php://input&amp;quot;)); 打印请求body。 使用IE9发送跨域POST请求 打开I" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.66.0 with theme even" />
+
+
+<link rel="canonical" href="https://3tgame.github.io/post/2017-03-10-server-cannot-get-post-parameters-from-ie9s-cors-request/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="IE9跨域发送POST请求，服务端获取不到POST参数" />
+<meta property="og:description" content="服务端写日志打印POST参数 如使用PHP框架，则可使用 error_log(print_r($_POST, true)); 打印请求POST参数。 使用 error_log(file_get_contents(&quot;php://input&quot;)); 打印请求body。 使用IE9发送跨域POST请求 打开I" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://3tgame.github.io/post/2017-03-10-server-cannot-get-post-parameters-from-ie9s-cors-request/" />
+<meta property="article:published_time" content="2017-03-10T15:30:18+00:00" />
+<meta property="article:modified_time" content="2017-03-10T15:30:18+00:00" />
+<meta itemprop="name" content="IE9跨域发送POST请求，服务端获取不到POST参数">
+<meta itemprop="description" content="服务端写日志打印POST参数 如使用PHP框架，则可使用 error_log(print_r($_POST, true)); 打印请求POST参数。 使用 error_log(file_get_contents(&quot;php://input&quot;)); 打印请求body。 使用IE9发送跨域POST请求 打开I">
+<meta itemprop="datePublished" content="2017-03-10T15:30:18&#43;00:00" />
+<meta itemprop="dateModified" content="2017-03-10T15:30:18&#43;00:00" />
+<meta itemprop="wordCount" content="1351">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="IE9跨域发送POST请求，服务端获取不到POST参数"/>
+<meta name="twitter:description" content="服务端写日志打印POST参数 如使用PHP框架，则可使用 error_log(print_r($_POST, true)); 打印请求POST参数。 使用 error_log(file_get_contents(&quot;php://input&quot;)); 打印请求body。 使用IE9发送跨域POST请求 打开I"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">3tgame</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">3tgame</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">IE9跨域发送POST请求，服务端获取不到POST参数</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-03-10 </span>
+        <div class="post-category">
+            <a href="/categories/%E8%B7%A8%E5%9F%9F/"> 跨域 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#服务端写日志打印post参数">服务端写日志打印POST参数</a></li>
+    <li><a href="#使用ie9发送跨域post请求">使用IE9发送跨域POST请求</a></li>
+    <li><a href="#使用ie10或者chrome发送跨域post请求">使用IE10、或者Chrome发送跨域POST请求</a></li>
+    <li><a href="#对比使用ie9ie10的请求">对比使用IE9，IE10的请求</a></li>
+    <li><a href="#实验是否是因为没有发送content-type-header导致">实验是否是因为没有发送Content-Type Header导致</a></li>
+    <li><a href="#分析">分析</a></li>
+    <li><a href="#解决方法">解决方法</a></li>
+    <li><a href="#参见">参见</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="服务端写日志打印post参数">服务端写日志打印POST参数</h2>
+<p>如使用PHP框架，则可使用 <code>error_log(print_r($_POST, true));</code>  打印请求POST参数。
+使用 <code>error_log(file_get_contents(&quot;php://input&quot;));</code>  打印请求body。</p>
+<h2 id="使用ie9发送跨域post请求">使用IE9发送跨域POST请求</h2>
+<p>打开IE（如果使用Win10，可以通过“Windwos附件 &ndash;&gt; Internet Explorer” ），如果当前版本不是IE9，按F12，打开IE的开发者模式。请求带有参数的跨域POST请求的访问连接。</p>
+<p>可看到输出数组为空，body则为username=xxxx&amp;password=yyyy&amp;captcha=etnmb。</p>
+<p>如果业务逻辑有使用POST参数，则提示没有传递username和password参数。</p>
+<h2 id="使用ie10或者chrome发送跨域post请求">使用IE10、或者Chrome发送跨域POST请求</h2>
+<p>发现输出为</p>
+<pre><code>Array
+(
+    [account] =&gt; xxxx
+    [password] =&gt; yyy
+    [captcha] =&gt; etnmb
+)
+</code></pre>
+<p>业务逻辑没有报错。</p>
+<h2 id="对比使用ie9ie10的请求">对比使用IE9，IE10的请求</h2>
+<p>发现IE9的请求没有发送Content-Type Header。</p>
+<h2 id="实验是否是因为没有发送content-type-header导致">实验是否是因为没有发送Content-Type Header导致</h2>
+<p>使用Postman模拟请求，Body选择“x-www-form-urlencoded”，Header取消勾选“Content-Type”，点击“Code”，即可看到发送内容如下：</p>
+<pre><code>POST /store/server/public/admin/auth/login HTTP/1.1
+Host: 192.168.31.99
+Cache-Control: no-cache
+Postman-Token: 0f0d1b4c-e1e8-9e20-3fed-4663b6444ca4
+
+account=xxxx&amp;password=yyyy&amp;captcha=etnmb
+</code></pre>
+<p>点击“发送”，看到服务端输出日志中$_POST数组为空。</p>
+<p>勾选“Content-type”，点击“Code”，即可看到发送内容如下：</p>
+<pre><code>POST /store/server/public/admin/auth/login HTTP/1.1
+Host: 192.168.31.99
+Content-Type: application/x-www-form-urlencoded
+Cache-Control: no-cache
+Postman-Token: 0f0d1b4c-e1e8-9e20-3fed-4663b6444ca4
+
+account=xxxx&amp;password=yyyy&amp;captcha=etnmb
+</code></pre>
+<p>点击“发送”，看到服务端输出日志中$_POST数组不为空。</p>
+<h2 id="分析">分析</h2>
+<p>实验发现JAVA框架也有这样的问题。</p>
+<p>可以确定就是没有发送“Content-Type” Header导致PHP框架不能正确设置$_POST参数。</p>
+<p>打算在前端框架设置请求“Content-Type”Header，试验发现在IE9中不能设置。说明可参见<a href="https://blogs.msdn.microsoft.com/ieinternals/2010/05/13/xdomainrequest-restrictions-limitations-and-workarounds/">XDomainRequest – Restrictions, Limitations and Workarounds</a> 中的“Unfortunately, when we fixed this problem in a later IE8 Beta, we went a bit too far; we restricted the content type to text/plain but didn’t allow the caller to specify that the data was in application/x-www-urlencoded form. This is problematic because server-side frameworks (e.g. ASP, ASPNET, etc) will only automatically parse a request’s fields into name-value pairs if the x-www-urlencoded content type is specified.”</p>
+<p><a href="https://blogs.msdn.microsoft.com/ieinternals/2010/05/13/xdomainrequest-restrictions-limitations-and-workarounds/">XDomainRequest – Restrictions, Limitations and Workarounds</a> 中的“As of 2014, XDomainRequest doesn’t appear to send any Content-Type header at all. It’s not clear to me when this changed.”也确认了IE9存在发送跨域请求不会发送“Content-Type”Header这样的问题。</p>
+<p><a href="http://php.net/manual/zh/reserved.variables.post.php">PHP:$_POST -Manual</a> 中也说明$_POST是“当 HTTP POST 请求的 Content-Type 是 <strong>application/x-www-form-urlencoded</strong> 或 <strong>multipart/form-data</strong> 时，通过 HTTP POST 方法传递给当前脚本中变量的关联数组。” ，所有没有“Content-Type”Header时，$_POST数组为空。</p>
+<p>打算在业务框架使用自定义Header“X-Content-Type”进行处理，可是实验发现IE9不能设置自定义Header，可参见<a href="https://blogs.msdn.microsoft.com/ieinternals/2010/05/13/xdomainrequest-restrictions-limitations-and-workarounds/">XDomainRequest – Restrictions, Limitations and Workarounds</a> 的“No custom headers may be added to the request”。</p>
+<h2 id="解决方法">解决方法</h2>
+<p><a href="https://blogs.msdn.microsoft.com/ieinternals/2010/05/13/xdomainrequest-restrictions-limitations-and-workarounds/">XDomainRequest – Restrictions, Limitations and Workarounds</a> 也说明了以下解决方法：</p>
+<p>“To workaround this issue, server code that currently processes HTML Forms must be rewritten to manually parse the request body into name-value pairs when receiving requests from XDomainRequest objects. This makes adding support for the XDomainRequest object more difficult than it would be otherwise.”</p>
+<p>对于PHP框架，参见<a href="http://stackoverflow.com/questions/8183397/how-to-get-post-parameters-with-wrong-header">How to get POST parameters with wrong header</a>，可使用以下方法解决:</p>
+<p><code>if (count($_POST) == 0) { parse_str(file_get_contents(&quot;php://input&quot;), $_POST); }</code></p>
+<p>也可根据User Agent判断是否为IE9（&ldquo;Mozilla/5.0 (compatible; <strong>MSIE 9.0</strong>; Windows NT 6.1; Trident/5.0)&quot;），进行特殊处理。</p>
+<p><code>$user_agent = $request-&gt;header('User-Agent'); if(preg_match('/MSIE\s9/i',$user_agent)) { parse_str(file_get_contents(&quot;php://input&quot;), $_POST); }</code></p>
+<h2 id="参见">参见</h2>
+<p><a href="https://blogs.msdn.microsoft.com/ieinternals/2010/05/13/xdomainrequest-restrictions-limitations-and-workarounds/">XDomainRequest – Restrictions, Limitations and Workarounds</a></p>
+<p><a href="http://php.net/manual/zh/reserved.variables.post.php">PHP:$_POST -Manual</a></p>
+<p><a href="http://stackoverflow.com/questions/8183397/how-to-get-post-parameters-with-wrong-header">How to get POST parameters with wrong header</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">xyr</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2017-03-10
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/2017-03-22-npm-dependencies-use-git-repository/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">npm dependencies 使用Git仓库</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/2015-08-03-setup-dnsmasq-as-local-dns-server/">
+            <span class="next-text nav-default">使用Dnsmasq作为内部DNS服务器，用于域名针对内外网返回不同IP</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="3tgame/3tgame.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://t.me/ziyouzengzhang" class="iconfont icon-telegram" title="telegram"></a>
+      <a href="https://twitter.com/xunyingren" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/3tgame" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.douban.com/people/32193900/" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://jq.qq.com/?_wv=1027&amp;k=5ggPyQW" class="iconfont icon-pocket" title="pocket"></a>
+  <a href="https://3tgame.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2013 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">xyr</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>地图出现黑线、图片边缘被切掉、图片模糊的原因及解决方法 - 3tgame - find my shadow</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xyr" /><meta name="description" content="一、地图出现黑线 原因、解决方法 可参看 How To Fix Artifacts With Cocos2D。 原因 绘制时某些拷贝操作失败而导致拷贝了隔壁其他Sprite的某一部分，导致出现" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.66.0 with theme even" />
+
+
+<link rel="canonical" href="https://3tgame.github.io/post/2014-01-09-cocos2dx-ccsprite-artifacts/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="地图出现黑线、图片边缘被切掉、图片模糊的原因及解决方法" />
+<meta property="og:description" content="一、地图出现黑线 原因、解决方法 可参看 How To Fix Artifacts With Cocos2D。 原因 绘制时某些拷贝操作失败而导致拷贝了隔壁其他Sprite的某一部分，导致出现" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://3tgame.github.io/post/2014-01-09-cocos2dx-ccsprite-artifacts/" />
+<meta property="article:published_time" content="2014-01-09T03:01:18+00:00" />
+<meta property="article:modified_time" content="2014-01-09T03:01:18+00:00" />
+<meta itemprop="name" content="地图出现黑线、图片边缘被切掉、图片模糊的原因及解决方法">
+<meta itemprop="description" content="一、地图出现黑线 原因、解决方法 可参看 How To Fix Artifacts With Cocos2D。 原因 绘制时某些拷贝操作失败而导致拷贝了隔壁其他Sprite的某一部分，导致出现">
+<meta itemprop="datePublished" content="2014-01-09T03:01:18&#43;00:00" />
+<meta itemprop="dateModified" content="2014-01-09T03:01:18&#43;00:00" />
+<meta itemprop="wordCount" content="1261">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="地图出现黑线、图片边缘被切掉、图片模糊的原因及解决方法"/>
+<meta name="twitter:description" content="一、地图出现黑线 原因、解决方法 可参看 How To Fix Artifacts With Cocos2D。 原因 绘制时某些拷贝操作失败而导致拷贝了隔壁其他Sprite的某一部分，导致出现"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">3tgame</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">3tgame</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">地图出现黑线、图片边缘被切掉、图片模糊的原因及解决方法</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2014-01-09 </span>
+        <div class="post-category">
+            <a href="/categories/cocos2dx/"> Cocos2dx </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>一、地图出现黑线</p>
+<p>原因、解决方法 可参看 <a href="http://rainbowcoding.com/how-to-fix-artifacts-with-cocos2d/">How To Fix Artifacts With Cocos2D</a>。</p>
+<p>原因</p>
+<p>绘制时某些拷贝操作失败而导致拷贝了隔壁其他Sprite的某一部分，导致出现其他色值的线条。</p>
+<p>解决方法</p>
+<p>方法1： 在使用TexturePacker打包时，使用Extrude属性。如TexturePacker *.png &ndash;extrude 1 &ndash;plist test.plist &ndash;sheet test.png</p>
+<p>方法2： 另一种不太好的方式是修改ccConfig.h，把#define CC_FIX_ARTIFACTS_BY_STRECHING_TEXEL 0
+修改为#define CC_FIX_ARTIFACTS_BY_STRECHING_TEXEL 1。</p>
+<p>说它不好原因可看ccConfig.h的注释
+{% highlight c++ %}
+If enabled, the texture coordinates will be calculated by using this formula:</p>
+<ul>
+<li>texCoord.left = (rect.origin.x<em>2+1) / (texture.wide</em>2);</li>
+<li>texCoord.right = texCoord.left + (rect.size.width<em>2-2)/(texture.wide</em>2);</li>
+</ul>
+<p>The same for bottom and top.</p>
+<p>This formula prevents artifacts by using 99% of the texture.
+The &ldquo;correct&rdquo; way to prevent artifacts is by using the spritesheet-artifact-fixer.py or a similar tool.
+{% endhighlight %}
+修改后，它只会使用原来图片的99%，故图片的边缘像素会被裁掉。
+且它的影响是全局的，对CCSprite、CCSpriteBatchNode、CCLabelAtlas等都有影响。</p>
+<p>方法3：使用setAliasTexParameters()关闭抗锯齿（cocos2dx对纹理默认是开启抗锯齿）。</p>
+<p>二、图片边缘被切掉</p>
+<p>现象</p>
+<p>圆形边框变得不圆，仔细看会感觉边缘的像素被切掉。</p>
+<p>原因</p>
+<p>使用上文介绍的地图出现黑线的第2个解决方法。</p>
+<p>解决方法</p>
+<p>不要使用上文介绍的地图出现黑线的第2个解决方法，改用第1种方法；
+或在CCSprite新写一个方法包含当#define CC_FIX_ARTIFACTS_BY_STRECHING_TEXEL 1时执行的逻辑，对于不允许出现黑线的图片（如地图）调用该新写的函数。</p>
+<p>三、图片模糊</p>
+<ol>
+<li>图片模糊透明</li>
+</ol>
+<p>原因：</p>
+<p>纹理在初始化的时候默认调用了setAntiAliasTexParameters()接口，而该接口设置GL_TEXTURE_MIN_FILTER和GL_TEXTURE_MAG_FILTER为GL_LINEAR。而使用GL_LINEAR渲染时，如果文理的像素点和显示区域的坐标不能一一对应（例如放大，缩小，或者显示位置为浮点数），就会使用附近的四个像素（2*2， 2D显示）做颜色混合，这样会使图片看上去模糊。</p>
+<p>解决方法：</p>
+<p>(1). 调用Texture的setAliasTexParameters接口，副作用在放大或缩小时会导致锯齿严重，而且如果显示位置为浮点数的话，会导致最后一行（一列）像素被截掉。</p>
+<p>(2). 不要使用图片分辨率为奇数的图片，因为使用奇数的图片，如果设置AnchorPoint为(0.5f, 0.5f), 即使setPosition()传入整数参数，也会导致图片的显示坐标为小数。</p>
+<p>(3). 如果一定要使用分辨率为奇数的图片，锚点设为(0.0f, 0.0f), 这样可以保证只要setPosition()传入的是整数(注意父控件的位置也不能是浮点数)就不会有显示问题。</p>
+<ol start="2">
+<li>图片感觉模糊不清晰</li>
+</ol>
+<p>原因:</p>
+<p>引擎默认使用的是透视投影模式，此模式的效果为近大远小的效果，所以远处的则模糊不清晰</p>
+<p>解决方法：</p>
+<p>可以使用 CCDirector::sharedDirector()-&gt;setProjection(kCCDirectorProjection2D); 设置引擎为正交投影模式。</p>
+<p>参见：</p>
+<p><a href="http://www.himigame.com/iphone-cocos2d/507.html">【iOS-Cocos2d游戏开发之十八】解决滚屏背景/拼接地图有黑边(缝隙)/图片缩放后模糊透明/图片不清晰【2013年12月13日补充】/动画播放出现毛边以及禁止游戏中自动锁屏问题！</a></p>
+<p><a href="http://blog.csdn.net/yuanhong2910/article/details/7506593">cocos2d-x如何解决图片显示模糊问题 </a></p>
+<p><a href="http://blog.csdn.net/wolfking_2009/article/details/8704526">cocos2d-x中使用CCSprite拼接有缝隙</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">xyr</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2014-01-09
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/2014-01-15-cocos2dx-ccscale9sprite-notice/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">CCScale9Sprite 不支持含透明像素的图片的缩放</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/2014-01-06-set-up-visual-studio-environment-for-c-call-lua-code/">
+            <span class="next-text nav-default">在Visual Studio中配置环境，用于C代码调用Lua代码</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="3tgame/3tgame.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://t.me/ziyouzengzhang" class="iconfont icon-telegram" title="telegram"></a>
+      <a href="https://twitter.com/xunyingren" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/3tgame" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.douban.com/people/32193900/" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://jq.qq.com/?_wv=1027&amp;k=5ggPyQW" class="iconfont icon-pocket" title="pocket"></a>
+  <a href="https://3tgame.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2013 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">xyr</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

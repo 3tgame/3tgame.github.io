@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用 wireshark 和 tcpdump 实时抓取Android的包 - 3tgame - find my shadow</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xyr" /><meta name="description" content="下载可运行在Android上的tcpdump 从 USB Sniffing with tcpdump - OMAPpedia 下载编译好的tcpdump， Pre-compiled binaries 上传tcpdump到Android机器上 adb push tcpdump /data/local/tcpdump 如" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.66.0 with theme even" />
+
+
+<link rel="canonical" href="https://3tgame.github.io/post/2015-01-06-use-wireshark-tcpdump-capture-android-packet/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="使用 wireshark 和 tcpdump 实时抓取Android的包" />
+<meta property="og:description" content="下载可运行在Android上的tcpdump 从 USB Sniffing with tcpdump - OMAPpedia 下载编译好的tcpdump， Pre-compiled binaries 上传tcpdump到Android机器上 adb push tcpdump /data/local/tcpdump 如" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://3tgame.github.io/post/2015-01-06-use-wireshark-tcpdump-capture-android-packet/" />
+<meta property="article:published_time" content="2015-01-06T11:10:18+00:00" />
+<meta property="article:modified_time" content="2015-01-06T11:10:18+00:00" />
+<meta itemprop="name" content="使用 wireshark 和 tcpdump 实时抓取Android的包">
+<meta itemprop="description" content="下载可运行在Android上的tcpdump 从 USB Sniffing with tcpdump - OMAPpedia 下载编译好的tcpdump， Pre-compiled binaries 上传tcpdump到Android机器上 adb push tcpdump /data/local/tcpdump 如">
+<meta itemprop="datePublished" content="2015-01-06T11:10:18&#43;00:00" />
+<meta itemprop="dateModified" content="2015-01-06T11:10:18&#43;00:00" />
+<meta itemprop="wordCount" content="508">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用 wireshark 和 tcpdump 实时抓取Android的包"/>
+<meta name="twitter:description" content="下载可运行在Android上的tcpdump 从 USB Sniffing with tcpdump - OMAPpedia 下载编译好的tcpdump， Pre-compiled binaries 上传tcpdump到Android机器上 adb push tcpdump /data/local/tcpdump 如"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">3tgame</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">3tgame</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">使用 wireshark 和 tcpdump 实时抓取Android的包</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2015-01-06 </span>
+        <div class="post-category">
+            <a href="/categories/android/"> Android </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="下载可运行在android上的tcpdump">下载可运行在Android上的tcpdump</h1>
+<p>从 <a href="http://omappedia.org/wiki/USB_Sniffing_with_tcpdump">USB Sniffing with tcpdump - OMAPpedia</a> 下载编译好的tcpdump，
+<a href="http://omappedia.org/wiki/File:Tcpdump-4.3.0-arm.tar.gz">Pre-compiled binaries</a></p>
+<h1 id="上传tcpdump到android机器上">上传tcpdump到Android机器上</h1>
+<p>adb push tcpdump /data/local/tcpdump</p>
+<p>如提示没有权限，则先root。</p>
+<h1 id="安装netcat">安装netcat</h1>
+<p>Android安装应用busybox，安装完后会有nc命令</p>
+<h1 id="使用adb-shell-在-android-设备上执行">使用adb shell 在 Android 设备上执行</h1>
+<p>{% highlight sh %}</p>
+<blockquote>
+<p>adb shell
+$ su</p>
+</blockquote>
+<h1 id="datalocaltcpdump--n--s-0--w----busybox-nc--l--p-11233">/data/local/tcpdump -n -s 0 -w - | busybox nc -l -p 11233</h1>
+<p>{% endhighlight %}</p>
+<p>在11233端口上建立服务，使用 tcpdump 抓包作为输入。</p>
+<h1 id="在电脑上执行">在电脑上执行</h1>
+<p>{% highlight sh %}
+adb forward tcp:11233 tcp:11233 &amp;&amp; d:\install\ncat.exe 127.0.0.1 11233 | &ldquo;D:\Program Files\Wireshark\Wireshark.exe&rdquo; -k -S -i -
+{% endhighlight %}</p>
+<p>以上命令使用 adb froward 把到本地的11233端口的socket连接转送到 Android上的11233端口，使用 ncat 建立1个客户端，连接到本地 127.0.0.1 的11233端口，得到的输出作为Wireshark的输入。</p>
+<p>Windows下没有nc命令，可到 <a href="http://nmap.org/ncat/">Ncat主页</a>下载<a href="http://nmap.org/dist/ncat-portable-5.59BETA1.zip">已编译好的Windows版本</a></p>
+<p>上面2步相当于把在Android上使用tcpdump抓的包用Wireshark显示</p>
+<p>参见：</p>
+<p><a href="http://tech.uc.cn/?p=2278">实时监控Android设备网络封包-UC技术博客</a></p>
+<p><a href="http://www.trinea.cn/android/tcpdump_wireshark/">如何利用tcpdump抓取andorid网络数据请求，Wireshark可清晰的查看到网络请求的各个过程包括三次握手，但Fiddler进行网络数据抓包和展现更方便</a></p>
+<p><a href="http://man.lupaworld.com/content/network/wireshark/c9.2.html">9.2. 从命令行启动Wireshark</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">xyr</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2015-01-06
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/2015-01-17-rtx-manager-warn-to-choose-datasource/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">打开腾讯通RTX管理器提示选择数据源</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/2014-12-26-heartbeat-packet/">
+            <span class="next-text nav-default">心跳包</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="3tgame/3tgame.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://t.me/ziyouzengzhang" class="iconfont icon-telegram" title="telegram"></a>
+      <a href="https://twitter.com/xunyingren" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/3tgame" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.douban.com/people/32193900/" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://jq.qq.com/?_wv=1027&amp;k=5ggPyQW" class="iconfont icon-pocket" title="pocket"></a>
+  <a href="https://3tgame.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2013 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">xyr</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

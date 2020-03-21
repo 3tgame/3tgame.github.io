@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tomcat java on 3tgame - find my shadow</title>
+    <link>https://3tgame.github.io/categories/tomcat-java/</link>
+    <description>Recent content in tomcat java on 3tgame - find my shadow</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 19 Apr 2017 16:18:18 +0000</lastBuildDate>
+    
+	<atom:link href="https://3tgame.github.io/categories/tomcat-java/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Java和Tomcat的类加载</title>
+      <link>https://3tgame.github.io/post/2017-04-19-loading-class-of-java-and-tomcat/</link>
+      <pubDate>Wed, 19 Apr 2017 16:18:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2017-04-19-loading-class-of-java-and-tomcat/</guid>
+      <description>Java的类加载 类从被加载到虚拟机内存中开始，到卸载出内存为止，它的整个生命周期包括：加载、验证、准备、解析、初始化、使用和卸载七个阶段。 J</description>
+    </item>
+    
+  </channel>
+</rss>

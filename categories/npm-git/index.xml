@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>npm git on 3tgame - find my shadow</title>
+    <link>https://3tgame.github.io/categories/npm-git/</link>
+    <description>Recent content in npm git on 3tgame - find my shadow</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 22 Mar 2017 17:10:18 +0000</lastBuildDate>
+    
+	<atom:link href="https://3tgame.github.io/categories/npm-git/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>npm dependencies 使用Git仓库</title>
+      <link>https://3tgame.github.io/post/2017-03-22-npm-dependencies-use-git-repository/</link>
+      <pubDate>Wed, 22 Mar 2017 17:10:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2017-03-22-npm-dependencies-use-git-repository/</guid>
+      <description>Git仓库，可以是自己建的，可以是Github仓库，本文以Coding.net仓库为例。 因为 package.json 里的 dependencise，是使用npm install 执</description>
+    </item>
+    
+  </channel>
+</rss>

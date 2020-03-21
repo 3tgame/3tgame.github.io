@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>npm dependencies 使用Git仓库 - 3tgame - find my shadow</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xyr" /><meta name="description" content="Git仓库，可以是自己建的，可以是Github仓库，本文以Coding.net仓库为例。 因为 package.json 里的 dependencise，是使用npm install 执" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.66.0 with theme even" />
+
+
+<link rel="canonical" href="https://3tgame.github.io/post/2017-03-22-npm-dependencies-use-git-repository/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="npm dependencies 使用Git仓库" />
+<meta property="og:description" content="Git仓库，可以是自己建的，可以是Github仓库，本文以Coding.net仓库为例。 因为 package.json 里的 dependencise，是使用npm install 执" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://3tgame.github.io/post/2017-03-22-npm-dependencies-use-git-repository/" />
+<meta property="article:published_time" content="2017-03-22T17:10:18+00:00" />
+<meta property="article:modified_time" content="2017-03-22T17:10:18+00:00" />
+<meta itemprop="name" content="npm dependencies 使用Git仓库">
+<meta itemprop="description" content="Git仓库，可以是自己建的，可以是Github仓库，本文以Coding.net仓库为例。 因为 package.json 里的 dependencise，是使用npm install 执">
+<meta itemprop="datePublished" content="2017-03-22T17:10:18&#43;00:00" />
+<meta itemprop="dateModified" content="2017-03-22T17:10:18&#43;00:00" />
+<meta itemprop="wordCount" content="1477">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="npm dependencies 使用Git仓库"/>
+<meta name="twitter:description" content="Git仓库，可以是自己建的，可以是Github仓库，本文以Coding.net仓库为例。 因为 package.json 里的 dependencise，是使用npm install 执"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">3tgame</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">3tgame</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">npm dependencies 使用Git仓库</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-03-22 </span>
+        <div class="post-category">
+            <a href="/categories/npm-git/"> npm git </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#指定http-url">指定http url</a></li>
+    <li><a href="#使用gitssh">使用git+ssh</a></li>
+    <li><a href="#使用githttps">使用git+https</a>
+      <ul>
+        <li><a href="#windows下的授权本文以window-10-为例">Windows下的授权（本文以Window 10 为例）</a></li>
+        <li><a href="#linux下的授权">Linux下的授权</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>Git仓库，可以是自己建的，可以是Github仓库，本文以Coding.net仓库为例。</p>
+<p>因为 package.json 里的 dependencise，是使用npm install 执行安装的，可参考 <a href="https://docs.npmjs.com/cli/install">install | npm Documentation</a>的说明，了解 可使用哪些方式配置 dependencise。</p>
+<h1 id="使用codingnet私有仓库">使用Coding.net私有仓库</h1>
+<p>因为私有仓库，涉及授权，故如下各种方法都要配置授权信息，才能使用。</p>
+<h2 id="指定http-url">指定http url</h2>
+<p>也支持直接使用 http 指定压缩包url，从项目代码页面右上方可看到“下载”按钮，可从中获得代码压缩包url，可配置如下：</p>
+<pre><code>&quot;jkpt_mobile&quot;: &quot;https://coding.net/t/eyevision/p/jkpt_mobile/git/archive/develop&quot;
+</code></pre>
+<p>但在Coding.net没找到该方法的授权方式，故该方式不支持使用私有项目。</p>
+<h2 id="使用gitssh">使用git+ssh</h2>
+<p>因为git协议不包含授权机制，需结合ssh协议才能达到授权目的。</p>
+<pre><code> &quot;jkpt_mobile&quot;: &quot;git+ssh://git@git.coding.net:eyevision/jkpt_mobile.git&quot;
+</code></pre>
+<p>该方式需要生成SSH密钥，参考<a href="https://coding.net/help/doc/git/ssh-key.html#section">配置SSH公钥</a>的方法生产公私钥。生成的公私钥id_rsa、id_rsa.pub默认是在用户目录的 .ssh 中，如Windows则是（C:\Users\xxx.ssh，其中xxx为用户名），Linux则为~/.ssh。</p>
+<p>不要修改生成后的文件名，如修改为coding_rsa，coding_rsa.pub，则需要在~/.ssh/config文件中配置如下：</p>
+<pre><code> Host git.coding.net
+ #User xxxx@email.com
+ PreferredAuthentications publickey
+ # 生成的非默认地址的公钥存放点
+ IdentityFile ~/.ssh/coding_rsa
+</code></pre>
+<p>然后在Coding.net的项目或个人账户里添加公钥，添加方法参考 <a href="https://coding.net/help/doc/git/ssh-key.html#section">配置SSH公钥</a> 。</p>
+<p>首次建立连接会要求信任主机，因此在 Git Bash（在Windows安装Git后，在任意目录右键菜单项中选择“Git Bash Here”，即可打开Git Bash） 中，执行 ssh -T <a href="mailto:git@git.coding.net">git@git.coding.net</a>，输入yes，信任主机后，才执行 npm install</p>
+<h2 id="使用githttps">使用git+https</h2>
+<p>因为git协议不包含授权机制，需结合https协议才能达到授权目的。</p>
+<pre><code> &quot;jkpt_mobile&quot;: &quot;git+https://git.coding.net/eyevision/jkpt_mobile.git#develop&quot;
+</code></pre>
+<p>#后面可指定分支名，或tag，或commit id。</p>
+<p>如#后面使用分支名，则每次npm install，会拉取该分支最新的提交。从nmp install的输出信息可看出，每次npm install时，都会拿最新的commit id替换分支名，如</p>
+<pre><code> git+https://git.coding.net/eyevision/jkpt_mobile.git#883980f09ec57f9a58c50d16aa7344285bb10188
+</code></pre>
+<h3 id="windows下的授权本文以window-10-为例">Windows下的授权（本文以Window 10 为例）</h3>
+<p>执行 npm install，如没有授权信息，执行以下命令缓存Git使用的用户名、密码，不用每次输入，参见 <a href="https://help.github.com/articles/caching-your-github-password-in-git/">Caching your GitHub password in Git - User Documentation</a>。</p>
+<pre><code> git config --global credential.helper wincred 
+</code></pre>
+<p>在执行以下命令，输入用户名、密码。clone下来后的仓库可删除。</p>
+<pre><code> git clone https://git.coding.net/eyevision/jkpt_mobile.git#develop
+</code></pre>
+<p>则会弹出一下窗口，提示输入你在Coding.net的用户名、密码。如果是在命令行提示输入用户名，不要输入邮箱，从Coding.net 我的账户页面的个性后缀信息中获取用户名，输入用户名。</p>
+<p><img src="http://q6vsega5l.bkt.clouddn.com/blog/enter_credential.png" alt="enter_credential.png"></p>
+<p>添加后，可在 Window 10 中的 cortana 中输入“Credential Manager”，打开“凭证管理器”，可看到已加入git.coding.net的凭证。</p>
+<p><img src="http://q6vsega5l.bkt.clouddn.com/blog/credential_manager.png" alt="credential_manager.png"></p>
+<p>如没有，可在这里按上图所示的信息，手动添加一个普通凭证。</p>
+<h3 id="linux下的授权">Linux下的授权</h3>
+<p>在 ~/.git-credentials （没有就创建）内添加</p>
+<pre><code>  https://username:passwd@git.coding.net
+</code></pre>
+<p>其中 username、passwd，根据实际值编辑，然后执行配置 Git 命令存储认证命令：</p>
+<pre><code>  $ git config --global credential.helper store
+</code></pre>
+<p>执行后在 ~/.gitconfig 文件会多出下面配置项: credential.helper = store</p>
+<p>参见 <a href="https://coding.net/help/faq/git/git.html#push-">怎样在每次 Push 时不用重复输入密码？</a></p>
+<h1 id="使用codingnet公有仓库">使用Coding.net公有仓库</h1>
+<p>如果使用公有仓库，则除可使用以上私有仓库介绍的方式（不需配置授权信息）外，还可使用git://协议。</p>
+<p>在 package.json 中配置</p>
+<pre><code> &quot;dependencies&quot;: {
+      &quot;jkpt_mobile&quot;: &quot;git://git.coding.net/eyevision/jkpt_mobile.git#develop&quot;
+ }
+</code></pre>
+<h1 id="总结">总结</h1>
+<p>对于Windows平台，推荐使用git+https方式，这种方法配置最少，且更方便区分用户，因为使用了“Credential Manager”也不用担心用户信息泄露。</p>
+<p>对于Linux平台，也可使用git+https方式 和git+ssh方式都可。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">xyr</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2017-03-22
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/2017-03-24-email-server-use-postfix/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">使用Postfix搭建邮件服务器</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/2017-03-10-server-cannot-get-post-parameters-from-ie9s-cors-request/">
+            <span class="next-text nav-default">IE9跨域发送POST请求，服务端获取不到POST参数</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="3tgame/3tgame.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://t.me/ziyouzengzhang" class="iconfont icon-telegram" title="telegram"></a>
+      <a href="https://twitter.com/xunyingren" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/3tgame" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.douban.com/people/32193900/" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://jq.qq.com/?_wv=1027&amp;k=5ggPyQW" class="iconfont icon-pocket" title="pocket"></a>
+  <a href="https://3tgame.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2013 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">xyr</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用Dnsmasq作为内部DNS服务器，用于域名针对内外网返回不同IP - 3tgame - find my shadow</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xyr" /><meta name="description" content="需求 内网测试时，需要某个域名指向某台内网机器，在电脑上，可修改host。对于手机等不方面改host的情况，或觉得每个人都要修改本地host不" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.66.0 with theme even" />
+
+
+<link rel="canonical" href="https://3tgame.github.io/post/2015-08-03-setup-dnsmasq-as-local-dns-server/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="使用Dnsmasq作为内部DNS服务器，用于域名针对内外网返回不同IP" />
+<meta property="og:description" content="需求 内网测试时，需要某个域名指向某台内网机器，在电脑上，可修改host。对于手机等不方面改host的情况，或觉得每个人都要修改本地host不" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://3tgame.github.io/post/2015-08-03-setup-dnsmasq-as-local-dns-server/" />
+<meta property="article:published_time" content="2015-08-03T17:10:18+00:00" />
+<meta property="article:modified_time" content="2015-08-03T17:10:18+00:00" />
+<meta itemprop="name" content="使用Dnsmasq作为内部DNS服务器，用于域名针对内外网返回不同IP">
+<meta itemprop="description" content="需求 内网测试时，需要某个域名指向某台内网机器，在电脑上，可修改host。对于手机等不方面改host的情况，或觉得每个人都要修改本地host不">
+<meta itemprop="datePublished" content="2015-08-03T17:10:18&#43;00:00" />
+<meta itemprop="dateModified" content="2015-08-03T17:10:18&#43;00:00" />
+<meta itemprop="wordCount" content="535">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用Dnsmasq作为内部DNS服务器，用于域名针对内外网返回不同IP"/>
+<meta name="twitter:description" content="需求 内网测试时，需要某个域名指向某台内网机器，在电脑上，可修改host。对于手机等不方面改host的情况，或觉得每个人都要修改本地host不"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">3tgame</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">3tgame</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">使用Dnsmasq作为内部DNS服务器，用于域名针对内外网返回不同IP</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2015-08-03 </span>
+        <div class="post-category">
+            <a href="/categories/dns/"> DNS </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="需求">需求</h1>
+<p>内网测试时，需要某个域名指向某台内网机器，在电脑上，可修改host。对于手机等不方面改host的情况，或觉得每个人都要修改本地host不方便，可配置DNS使用内部DNS服务器，访问特定域名返回内网IP。</p>
+<h1 id="介绍">介绍</h1>
+<p>在Linux下可安装Bind或Dnsmasq作为DNS服务。Dnsmasq比Bind简单，对于内网环境够用，支持泛域名、特定域名使用特定上级DNS、屏蔽特定域名，因此选择使用Dnsmasq。</p>
+<h1 id="安装">安装</h1>
+<p>yum install dnsmasq</p>
+<h1 id="配置">配置</h1>
+<p>dnsmasq 默认使用 /etc/hosts 和 /etc/resolv.conf。如果不希望dnsmasq共享Linux上这些域名服务器和host配置，可在 /etc/dnsmasq.conf 配置</p>
+<pre><code> resolv-file=/etc/dnsmasq.d/resolv.dnsmasq.conf
+ addn-hosts=/etc/dnsmasq.d/dnsmasq.hosts
+</code></pre>
+<p>/etc/dnsmasq.d/resolv.dnsmasq.conf 配置上级DNS服务器</p>
+<pre><code> nameserver 192.168.1.1
+</code></pre>
+<p>/etc/dnsmasq.d/dnsmasq.hosts 配置域名解析</p>
+<pre><code> 192.168.1.168 test.com
+</code></pre>
+<p>如上配置，解析 a.test.com 还是 使用原来的域名记录，而非指向192.168.1.168，要想子域名生效，可在 /etc/dnsmasq.conf 配置泛解析</p>
+<pre><code> address=/test.com/192.168.1.168
+</code></pre>
+<p>配置特定域名使用特定DNS服务器</p>
+<pre><code> server=/google.com/8.8.4.4
+</code></pre>
+<p>更改完后要重启dnsmasq服务：service dnsmasq restart</p>
+<p>配置防火墙开放53端口</p>
+<pre><code> vi /etc/sysconfig/iptables
+ -A INPUT -p udp -m state --state NEW --dport 53 -j ACCEPT
+ -A INPUT -p tcp -m state --state NEW --dport 53 -j ACCEPT
+</code></pre>
+<h1 id="测试">测试</h1>
+<p>在客户端配置dns服务器为 安装dnsmasq的服务器的ip。
+查看 nslookup xxx.test.com 的输出，确认配置生效。
+如没有该命令，使用 yum install bind-utils 安装</p>
+<p>参看 <a href="http://itgeeker.net/centos6-5-64bit-how-to-install-dnsmasq-broken-gwf/">CentOS6.5 64bit如何安装DNS服务dnsmasq 作为翻墙利器_技术奇客_ITGeeker</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">xyr</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2015-08-03
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/2017-03-10-server-cannot-get-post-parameters-from-ie9s-cors-request/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">IE9跨域发送POST请求，服务端获取不到POST参数</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/2015-05-16-notice-on-socket-passive-mode-and-delay_send/">
+            <span class="next-text nav-default">Socket 被动模式和delay_send结合使用的注意点</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="3tgame/3tgame.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://t.me/ziyouzengzhang" class="iconfont icon-telegram" title="telegram"></a>
+      <a href="https://twitter.com/xunyingren" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/3tgame" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.douban.com/people/32193900/" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://jq.qq.com/?_wv=1027&amp;k=5ggPyQW" class="iconfont icon-pocket" title="pocket"></a>
+  <a href="https://3tgame.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2013 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">xyr</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

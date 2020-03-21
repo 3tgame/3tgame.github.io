@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nginx on 3tgame - find my shadow</title>
+    <link>https://3tgame.github.io/categories/nginx/</link>
+    <description>Recent content in Nginx on 3tgame - find my shadow</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 13 Apr 2015 14:30:18 +0000</lastBuildDate>
+    
+	<atom:link href="https://3tgame.github.io/categories/nginx/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Centos升级到6.6，请求网页，Nginx提示原来没有的错误</title>
+      <link>https://3tgame.github.io/post/2015-04-13-nginx-cant-access-file-when-centos-upgrade-to-6.6/</link>
+      <pubDate>Mon, 13 Apr 2015 14:30:18 +0000</pubDate>
+      
+      <guid>https://3tgame.github.io/post/2015-04-13-nginx-cant-access-file-when-centos-upgrade-to-6.6/</guid>
+      <description>问题1 请求 http://debug.wxhl.qijian.com/pay.html，Nginx错误日志提示 ==&amp;gt; /var/log/nginx/error.log &amp;lt;== 2015/04/13 15:39:10 [error] 10704#0: *28 open() &amp;ldquo;/data/wxhl/web/debug/pay.html&amp;rdquo; failed (13: Permission denied), client: 192.168.1.114,</description>
+    </item>
+    
+  </channel>
+</rss>

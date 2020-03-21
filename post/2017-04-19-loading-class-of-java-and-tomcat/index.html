@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Java和Tomcat的类加载 - 3tgame - find my shadow</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xyr" /><meta name="description" content="Java的类加载 类从被加载到虚拟机内存中开始，到卸载出内存为止，它的整个生命周期包括：加载、验证、准备、解析、初始化、使用和卸载七个阶段。 J" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.66.0 with theme even" />
+
+
+<link rel="canonical" href="https://3tgame.github.io/post/2017-04-19-loading-class-of-java-and-tomcat/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Java和Tomcat的类加载" />
+<meta property="og:description" content="Java的类加载 类从被加载到虚拟机内存中开始，到卸载出内存为止，它的整个生命周期包括：加载、验证、准备、解析、初始化、使用和卸载七个阶段。 J" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://3tgame.github.io/post/2017-04-19-loading-class-of-java-and-tomcat/" />
+<meta property="article:published_time" content="2017-04-19T16:18:18+00:00" />
+<meta property="article:modified_time" content="2017-04-19T16:18:18+00:00" />
+<meta itemprop="name" content="Java和Tomcat的类加载">
+<meta itemprop="description" content="Java的类加载 类从被加载到虚拟机内存中开始，到卸载出内存为止，它的整个生命周期包括：加载、验证、准备、解析、初始化、使用和卸载七个阶段。 J">
+<meta itemprop="datePublished" content="2017-04-19T16:18:18&#43;00:00" />
+<meta itemprop="dateModified" content="2017-04-19T16:18:18&#43;00:00" />
+<meta itemprop="wordCount" content="1738">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java和Tomcat的类加载"/>
+<meta name="twitter:description" content="Java的类加载 类从被加载到虚拟机内存中开始，到卸载出内存为止，它的整个生命周期包括：加载、验证、准备、解析、初始化、使用和卸载七个阶段。 J"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">3tgame</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">3tgame</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Java和Tomcat的类加载</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-04-19 </span>
+        <div class="post-category">
+            <a href="/categories/tomcat-java/"> tomcat java </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#java的类加载器">Java的类加载器</a>
+      <ul>
+        <li><a href="#启动类加载器">启动类加载器：</a></li>
+        <li><a href="#扩展类加载器">扩展类加载器：</a></li>
+        <li><a href="#应用程序类加载器">应用程序类加载器：</a></li>
+      </ul>
+    </li>
+    <li><a href="#其他">其他</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#tomcat的类加载器">Tomcat的类加载器</a>
+      <ul>
+        <li><a href="#bootstrap">Bootstrap</a></li>
+        <li><a href="#system">System</a></li>
+        <li><a href="#common">Common</a></li>
+        <li><a href="#webappx">WebappX</a></li>
+      </ul>
+    </li>
+    <li><a href="#类加载顺序">类加载顺序</a></li>
+    <li><a href="#其他-1">其他</a></li>
+    <li><a href="#问题">问题</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="java的类加载">Java的类加载</h1>
+<p>类从被加载到虚拟机内存中开始，到卸载出内存为止，它的整个生命周期包括：加载、验证、准备、解析、初始化、使用和卸载七个阶段。</p>
+<h2 id="java的类加载器">Java的类加载器</h2>
+<p>层次关系如下：</p>
+<pre><code> 启动类加载器
+         |
+ 扩展类加载器
+         |
+ 应用程序类加载器
+         |
+ 自定义类加载器
+</code></pre>
+<h3 id="启动类加载器">启动类加载器：</h3>
+<p>Bootstrap ClassLoader，跟上面相同。它负责加载存放在JDK\jre\li(JDK 代表 JDK 的安装目录，下同)下，或被-Xbootclasspath参数指定的路径中的，并且能被虚拟机识别的类库（如 rt.jar，所有的java.*开头的类均被 Bootstrap ClassLoader 加载）。启动类加载器是无法被 Java 程序直接引用的。</p>
+<h3 id="扩展类加载器">扩展类加载器：</h3>
+<p>Extension ClassLoader，该加载器由sun.misc.Launcher$ExtClassLoader实现，它负责加载JDK\jre\lib\ext目录中，或者由 java.ext.dirs 系统变量指定的路径中的所有类库（如javax.*开头的类），开发者可以直接使用扩展类加载器。</p>
+<h3 id="应用程序类加载器">应用程序类加载器：</h3>
+<p>Application ClassLoader，该类加载器由 sun.misc.Launcher$AppClassLoader 来实现，它负责加载用户类路径（ClassPath）所指定的类，开发者可以直接使用该类加载器，如果应用程序中没有自定义过自己的类加载器，一般情况下这个就是程序中默认的类加载器。</p>
+<h2 id="其他">其他</h2>
+<p>在 java 启动参数中添加 -verbose:class，即可从日志中看到class 加载相关的日志。</p>
+<h1 id="tomcat的类加载">Tomcat的类加载</h1>
+<h2 id="tomcat的类加载器">Tomcat的类加载器</h2>
+<p>在Tomcat启动时创建4种加载器，父子关系如下：</p>
+<pre><code>   Bootstrap
+      |
+   System
+      |
+   Common
+   /     \
+ Webapp1   Webapp2 ...
+</code></pre>
+<h3 id="bootstrap">Bootstrap</h3>
+<p>该class loader包含Java Virtual Machine提供的基本运行时class和系统扩展目录（$JAVA_HOME/jre/lib/ext）的JAR文件的class。</p>
+<h3 id="system">System</h3>
+<p>该class loader加载$CATALINA_HOME/bin/bootstrap.jar、$CATALINA_BASE/bin/tomcat-juli.jar 或 $CATALINA_HOME/bin/tomcat-juli.jar、$CATALINA_HOME/bin/commons-daemon.jar，这些jar都是在$CATALINA_HOME/bin/catalina.sh中指定。</p>
+<h3 id="common">Common</h3>
+<p>该class loader包含对Tomcat内部class和所有web 应用都可见的class。该class loader搜索的路径由 $CATALINA_BASE/conf/catalina.properties 文件的 common.loader属性指定。默认设置按以下顺序搜索：</p>
+<pre><code> unpacked classes and resources in $CATALINA_BASE/lib
+ JAR files in $CATALINA_BASE/lib
+ unpacked classes and resources in $CATALINA_HOME/lib
+ JAR files in $CATALINA_HOME/lib
+</code></pre>
+<h3 id="webappx">WebappX</h3>
+<p>为每一个web应用创建的class loader，web应用的 /WEB-INF/classes 目录的所有unpacked classes和resources、/WEB-INF/lib 目录的JAR文件的classes和resources，只对当前web应用可见。</p>
+<h2 id="类加载顺序">类加载顺序</h2>
+<p>对于一个web应用，class和resource加载不同于默认的Java委派模型，按以下顺序查找：</p>
+<pre><code> Bootstrap classes of your JVM
+ /WEB-INF/classes of your web application
+ /WEB-INF/lib/*.jar of your web application
+ System class loader classes
+ Common class loader classes
+</code></pre>
+<p>更多参见 <a href="https://tomcat.apache.org/tomcat-8.5-doc/class-loader-howto.html">Apache Tomcat 8 (8.5.14) - Class Loader HOW-TO</a></p>
+<h2 id="其他-1">其他</h2>
+<p>在 /tomcat_home/conf/catalina.properties   可指定类加载相关属性</p>
+<p>如果需要某些servlet在web应用启动时加载，可在 conf/web.xml 配置如下：</p>
+<pre><code> &lt;web-app&gt;  
+   &lt;servlet&gt;  
+        &lt;servlet-name&gt;servlet1&lt;/servlet-name&gt;  
+        &lt;servlet-class&gt;com.javatpoint.FirstServlet&lt;/servlet-class&gt;  
+        &lt;load-on-startup&gt;0&lt;/load-on-startup&gt; //value given 0(zero)
+   &lt;/servlet&gt;
+ &lt;/web-app&gt;
+</code></pre>
+<p>load-on-startup 表明该servlet在启动web 应用时，会被加载、初始化并执行init()方法。该元素的值表示加载的顺序。值越低优先级越高。</p>
+<h2 id="问题">问题</h2>
+<p>在不停止Tomcat时，发布更新web应用目录下的class文件后，日志输出错误信息“java.lang.IllegalStateException: Method [myInfo] was discovered in the .class file but cannot be resolved in the class object”。</p>
+<p>原因：这是因为JVM是按需加载class，在需要某个class时才动态加载该class，当class文件被更新，类定义不一致，导致加载类失败。如果执行请求导致该class已被加载，接着在不停Tomcat的情况下更新class文件，不会出现该错误。因为该class已加载不会导致加载新的class定义。</p>
+<p>解决方法：可以 在停掉Tomcat后，再发布更新class文件。或者更新回旧版本的class，因为之前加载失败，再次请求，会导致再次加载class。</p>
+<h1 id="参见">参见</h1>
+<p><a href="http://docs.oracle.com/javase/specs/jls/se8/html/jls-12.html#jls-12.2">Java Language Specification - Chapter 12. Execution</a></p>
+<p><a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-5.html#jvms-5.3">Java Virtual MachineSpecification - Chapter 5. Loading, Linking, and Initializing</a></p>
+<p><a href="http://wiki.jikexueyuan.com/project/java-vm/class-loading-mechanism.html">类加载机制 - 深入理解 Java 虚拟机 - 极客学院Wiki</a></p>
+<p><a href="http://blog.csdn.net/liweisnake/article/details/8470285">浅议tomcat与classloader - 笨狐狸 - 博客频道 - CSDN.NET</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">xyr</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2017-04-19
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/2017-06-16-canceled_status_request/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">浏览器出现Status为canceled的请求</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/2017-04-13-share-session-data-between-servers/">
+            <span class="next-text nav-default">在不同服务器共享Session</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="3tgame/3tgame.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://t.me/ziyouzengzhang" class="iconfont icon-telegram" title="telegram"></a>
+      <a href="https://twitter.com/xunyingren" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/3tgame" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.douban.com/people/32193900/" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://jq.qq.com/?_wv=1027&amp;k=5ggPyQW" class="iconfont icon-pocket" title="pocket"></a>
+  <a href="https://3tgame.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2013 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">xyr</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
