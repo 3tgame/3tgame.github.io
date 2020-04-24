@@ -62,11 +62,11 @@ Git仓库，可以是自己建的，可以是Github仓库，本文以Coding.net�
  
 则会弹出一下窗口，提示输入你在Coding.net的用户名、密码。如果是在命令行提示输入用户名，不要输入邮箱，从Coding.net 我的账户页面的个性后缀信息中获取用户名，输入用户名。
 
-![enter_credential.png](http://q6vsega5l.bkt.clouddn.com/blog/enter_credential.png)
+![enter_credential.png](/img/enter_credential.png)
 
 添加后，可在 Window 10 中的 cortana 中输入“Credential Manager”，打开“凭证管理器”，可看到已加入git.coding.net的凭证。
 
-![credential_manager.png](http://q6vsega5l.bkt.clouddn.com/blog/credential_manager.png)
+![credential_manager.png](/img/credential_manager.png)
 
 如没有，可在这里按上图所示的信息，手动添加一个普通凭证。
 

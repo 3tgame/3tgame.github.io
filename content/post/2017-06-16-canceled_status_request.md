@@ -9,11 +9,11 @@ categories:
 # 问题
 使用微信授权登录后出现没有登录成功的问题，使用微信开发者工具，查看HTTP请求，发现有一个请求被cancel掉，如下所示
 
-![canceled_request.png](http://q6vsega5l.bkt.clouddn.com/canceled_request.png)
+![canceled_request.png](/img/canceled_request.png)
 
 查看请求详细信息，看到错误提示“Provisional headers are shown”：
 
-![canceled_request_detail.png](http://q6vsega5l.bkt.clouddn.com/canceled_request_detail.png)
+![canceled_request_detail.png](/img/canceled_request_detail.png)
 # 分析
 一开始怀疑是微信限制window.location.href的赋值操作，因为这个跳转是由 window.location.href = xxxx 引起的，排查一段时间后，发现这个跳转极少概率可以执行成功，就是微信没有限制window.location.href的赋值操作。
 
