@@ -141,9 +141,9 @@
     <div class="post-content">
       <h1 id="问题">问题</h1>
 <p>使用微信授权登录后出现没有登录成功的问题，使用微信开发者工具，查看HTTP请求，发现有一个请求被cancel掉，如下所示</p>
-<p><img src="http://q6vsega5l.bkt.clouddn.com/canceled_request.png" alt="canceled_request.png"></p>
+<p><img src="/img/canceled_request.png" alt="canceled_request.png"></p>
 <p>查看请求详细信息，看到错误提示“Provisional headers are shown”：</p>
-<p><img src="http://q6vsega5l.bkt.clouddn.com/canceled_request_detail.png" alt="canceled_request_detail.png"></p>
+<p><img src="/img/canceled_request_detail.png" alt="canceled_request_detail.png"></p>
 <h1 id="分析">分析</h1>
 <p>一开始怀疑是微信限制window.location.href的赋值操作，因为这个跳转是由 window.location.href = xxxx 引起的，排查一段时间后，发现这个跳转极少概率可以执行成功，就是微信没有限制window.location.href的赋值操作。</p>
 <p>搜索错误的信息“Provisional headers are shown”，有说请求可能被浏览器插件（如AdBlock）屏蔽了，但我不开启这个插件还是有这个问题，况且Chrome浏览器的插件不会影响微信开发工具。有说可在Chrome浏览器地址栏输入 chrome://net-internals，即可查看Event详细信息，可是微信虽然使用Chrome内核，但不能使用该指令。</p>
