@@ -24,6 +24,6 @@ weight: 50
 * QQ群:[376374734](https://jq.qq.com/?_wv=1027&k=5ggPyQW)
 * [Github](https://github.com/3tgame)
 
-本博客GitHub地址 [blog](https://github.com/3tgame/blog)
+本博客GitHub地址 [blog](https://github.com/3tgame/3tgame.github.io)
 
 一直在寻找，下个路口会遇见谁。望着天上的月亮，有种我走它走的错觉。时间告诉我，它不会等我。 望着天上星星，看似很近、实际很远。
