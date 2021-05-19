@@ -29,8 +29,9 @@ drwxr-xr-x root root wxhl
 drwxr-xr-x root root web
 drwxrwxrwx root root debug
 -rwxrwxrwx root root pay.html
-父目录的权限都有 可执行 权限，pay.html 有可读权限。权限没问题。
 ```
+父目录的权限都有 可执行 权限，pay.html 有可读权限。权限没问题。
+
 # 问题2
 
 请求 http://debug.wxhl.qijian.com/info.php，Nginx错误日志提示
