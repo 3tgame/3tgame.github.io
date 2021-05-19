@@ -48,7 +48,7 @@
 <meta itemprop="description" content="问题1 请求 http://debug.wxhl.qijian.com/pay.html，Nginx错误日志提示 ==&gt; /var/log/nginx/error.log &lt;== 2015/04/13 15:39:10 [error] 10704#0: *28 open() &ldquo;/data/wxhl/web/debug/pay.html&rdquo; failed (13: Permission denied), client: 192.168.1.114,">
 <meta itemprop="datePublished" content="2015-04-13T14:30:18&#43;00:00" />
 <meta itemprop="dateModified" content="2015-04-13T14:30:18&#43;00:00" />
-<meta itemprop="wordCount" content="654">
+<meta itemprop="wordCount" content="653">
 
 
 
@@ -160,7 +160,6 @@ type=SYSCALL msg=audit(1428910750.812:14880): arch=c000003e syscall=2 success=no
 </span><span class="lnt"> 9
 </span><span class="lnt">10
 </span><span class="lnt">11
-</span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-fallback" data-lang="fallback">     $ namei -om /data/wxhl/web/debug/pay.html
@@ -174,10 +173,10 @@ drwxr-xr-x root root wxhl
 drwxr-xr-x root root web
 drwxrwxrwx root root debug
 -rwxrwxrwx root root pay.html
-父目录的权限都有 可执行 权限，pay.html 有可读权限。权限没问题。
 </code></pre></td></tr></table>
 </div>
-</div><h1 id="问题2">问题2</h1>
+</div><p>父目录的权限都有 可执行 权限，pay.html 有可读权限。权限没问题。</p>
+<h1 id="问题2">问题2</h1>
 <p>请求 <a href="http://debug.wxhl.qijian.com/info.php">http://debug.wxhl.qijian.com/info.php</a>，Nginx错误日志提示</p>
 <p>==&gt; /var/log/nginx/error.log &lt;==
 2015/04/13 15:34:20 [error] 10704#0: *18 FastCGI sent in stderr: &ldquo;Primary script unknown&rdquo; while reading response header from upstream, client: 192.168.1.114, server: debug.wxhl.qijian.com, request: &ldquo;GET /info.php HTTP/1.1&rdquo;, upstream: &ldquo;fastcgi://127.0.0.1:9000&rdquo;, host: &ldquo;debug.wxhl.qijian.com&rdquo;</p>
