@@ -48,7 +48,7 @@
 <meta itemprop="description" content="问题1 请求 http://debug.wxhl.qijian.com/pay.html，Nginx错误日志提示 ==&gt; /var/log/nginx/error.log &lt;== 2015/04/13 15:39:10 [error] 10704#0: *28 open() &ldquo;/data/wxhl/web/debug/pay.html&rdquo; failed (13: Permission denied), client: 192.168.1.114,">
 <meta itemprop="datePublished" content="2015-04-13T14:30:18&#43;00:00" />
 <meta itemprop="dateModified" content="2015-04-13T14:30:18&#43;00:00" />
-<meta itemprop="wordCount" content="630">
+<meta itemprop="wordCount" content="654">
 
 
 
@@ -146,40 +146,76 @@
 <p>==&gt; /var/log/audit/audit.log &lt;==
 type=AVC msg=audit(1428910750.812:14880): avc:  denied  { read } for  pid=10704 comm=&quot;nginx&rdquo; name=&quot;pay.html&rdquo; dev=dm-2 ino=9832981 scontext=unconfined_u:system_r:httpd_t:s0 tcontext=unconfined_u:object_r:admin_home_t:s0 tclass=file
 type=SYSCALL msg=audit(1428910750.812:14880): arch=c000003e syscall=2 success=no exit=-13 a0=14d6864 a1=800 a2=0 a3=7f37b7a569e0 items=0 ppid=10703 pid=10704 auid=0 uid=497 gid=497 euid=497 suid=497 fsuid=497 egid=497 sgid=497 fsgid=497 tty=(none) ses=1451 comm=&quot;nginx&rdquo; exe=&rdquo;/usr/sbin/nginx&rdquo; subj=unconfined_u:system_r:httpd_t:s0 key=(null)</p>
-<p>使用以下命令 查看权限信息
-$ namei -om /data/wxhl/web/debug/pay.html
+<p>使用以下命令 查看权限信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">     $ namei -om /data/wxhl/web/debug/pay.html
 f: /data/wxhl/web/debug/pay.html
 dr-xr-xr-x root root /
 lrwxrwxrwx root root data -&gt; /home/data
-dr-xr-xr-x root root /
-drwxr-xr-x root root home
-drwxr-xr-x root root data
+   dr-xr-xr-x root root /
+   drwxr-xr-x root root home
+   drwxr-xr-x root root data
 drwxr-xr-x root root wxhl
 drwxr-xr-x root root web
 drwxrwxrwx root root debug
 -rwxrwxrwx root root pay.html
-父目录的权限都有 可执行 权限，pay.html 有可读权限。权限没问题。</p>
-<h1 id="问题2">问题2</h1>
+父目录的权限都有 可执行 权限，pay.html 有可读权限。权限没问题。
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="问题2">问题2</h1>
 <p>请求 <a href="http://debug.wxhl.qijian.com/info.php">http://debug.wxhl.qijian.com/info.php</a>，Nginx错误日志提示</p>
 <p>==&gt; /var/log/nginx/error.log &lt;==
 2015/04/13 15:34:20 [error] 10704#0: *18 FastCGI sent in stderr: &ldquo;Primary script unknown&rdquo; while reading response header from upstream, client: 192.168.1.114, server: debug.wxhl.qijian.com, request: &ldquo;GET /info.php HTTP/1.1&rdquo;, upstream: &ldquo;fastcgi://127.0.0.1:9000&rdquo;, host: &ldquo;debug.wxhl.qijian.com&rdquo;</p>
 <p>==&gt; /var/log/audit/audit.log &lt;==
 type=AVC msg=audit(1428910460.317:14879): avc:  denied  { getattr } for  pid=10683 comm=&quot;php-fpm&rdquo; path=&rdquo;/home/data/wxhl/web/debug/info.php&rdquo; dev=dm-2 ino=9831008 scontext=unconfined_u:system_r:httpd_t:s0 tcontext=unconfined_u:object_r:home_root_t:s0 tclass=file
 type=SYSCALL msg=audit(1428910460.317:14879): arch=c000003e syscall=6 success=no exit=-13 a0=7fff5b214190 a1=7fff5b214080 a2=7fff5b214080 a3=1d items=0 ppid=10678 pid=10683 auid=0 uid=497 gid=497 euid=497 suid=497 fsuid=497 egid=497 sgid=497 fsgid=497 tty=(none) ses=1451 comm=&quot;php-fpm&rdquo; exe=&rdquo;/usr/sbin/php-fpm&rdquo; subj=unconfined_u:system_r:httpd_t:s0 key=(null)</p>
-<p>查看 Nginx 关于虚拟空间的配置：
-server {
-listen       80;
-server_name  debug.wxhl.qijian.com;</p>
-<pre><code>location ~ \.php$ {                                                                                                                                                                             
-    root           /data/wxhl/web/debug;
-    fastcgi_pass   127.0.0.1:9000;
-    fastcgi_index  index.php;
-    fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-    include        fastcgi_params;
-}  
-</code></pre>
-<p>}</p>
-<p>配置正确，且 文件 /data/wxhl/web/debug/info.php 确实存在，权限都正确。</p>
+<p>查看 Nginx 关于虚拟空间的配置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">server {
+    listen       80;
+    server_name  debug.wxhl.qijian.com;
+  
+    location ~ \.php$ {                                                                                                                                                                             
+        root           /data/wxhl/web/debug;
+        fastcgi_pass   127.0.0.1:9000;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+        include        fastcgi_params;
+    }  
+} 
+</code></pre></td></tr></table>
+</div>
+</div><p>配置正确，且 文件 /data/wxhl/web/debug/info.php 确实存在，权限都正确。</p>
 <h1 id="原因">原因</h1>
 <p>按照
 <a href="http://blog.martinfjordvald.com/2011/01/no-input-file-specified-with-php-and-nginx/">How to Solve &ldquo;No input file specified&rdquo; with PHP and Nginx</a> 里介绍的方法进行检查，还是没解决。</p>
@@ -268,7 +304,7 @@ server_name  debug.wxhl.qijian.com;</p>
   <span class="copyright-year">
     &copy; 
     2013 - 
-    2020
+    2021
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
