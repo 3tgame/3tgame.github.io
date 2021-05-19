@@ -17,6 +17,7 @@ type=AVC msg=audit(1428910750.812:14880): avc:  denied  { read } for  pid=10704 
 type=SYSCALL msg=audit(1428910750.812:14880): arch=c000003e syscall=2 success=no exit=-13 a0=14d6864 a1=800 a2=0 a3=7f37b7a569e0 items=0 ppid=10703 pid=10704 auid=0 uid=497 gid=497 euid=497 suid=497 fsuid=497 egid=497 sgid=497 fsgid=497 tty=(none) ses=1451 comm="nginx" exe="/usr/sbin/nginx" subj=unconfined_u:system_r:httpd_t:s0 key=(null)
 
 使用以下命令 查看权限信息
+```
      $ namei -om /data/wxhl/web/debug/pay.html
 f: /data/wxhl/web/debug/pay.html
 dr-xr-xr-x root root /
@@ -29,7 +30,7 @@ drwxr-xr-x root root web
 drwxrwxrwx root root debug
 -rwxrwxrwx root root pay.html
 父目录的权限都有 可执行 权限，pay.html 有可读权限。权限没问题。
-
+```
 # 问题2
 
 请求 http://debug.wxhl.qijian.com/info.php，Nginx错误日志提示
@@ -42,6 +43,7 @@ type=AVC msg=audit(1428910460.317:14879): avc:  denied  { getattr } for  pid=106
 type=SYSCALL msg=audit(1428910460.317:14879): arch=c000003e syscall=6 success=no exit=-13 a0=7fff5b214190 a1=7fff5b214080 a2=7fff5b214080 a3=1d items=0 ppid=10678 pid=10683 auid=0 uid=497 gid=497 euid=497 suid=497 fsuid=497 egid=497 sgid=497 fsgid=497 tty=(none) ses=1451 comm="php-fpm" exe="/usr/sbin/php-fpm" subj=unconfined_u:system_r:httpd_t:s0 key=(null)
 
 查看 Nginx 关于虚拟空间的配置：
+```
 server {
     listen       80;
     server_name  debug.wxhl.qijian.com;
@@ -54,7 +56,7 @@ server {
         include        fastcgi_params;
     }  
 } 
-
+```
 配置正确，且 文件 /data/wxhl/web/debug/info.php 确实存在，权限都正确。
 
 # 原因
