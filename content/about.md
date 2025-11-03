@@ -20,7 +20,7 @@ weight: 50
 你可从以下方式找到我:
 
 * [博客](http://3tgame.github.io/blog)
-* telegram频道:[自由增长](https://t.me/ziyouzengzhang)
+* telegram频道:[自由增长](https://t.me/ziyouzengzhang8)
 * QQ群:[376374734](https://jq.qq.com/?_wv=1027&k=5ggPyQW)
 * [Github](https://github.com/3tgame)
 
