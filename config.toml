@@ -179,8 +179,8 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
     alipay = "/path/to/your/alipay-qr-code.png"           # 支付宝二维码
 
   [params.social]                                         # 社交链接
-    a-telegram = "https://t.me/ziyouzengzhang"
-    b-twitter = "https://twitter.com/xunyingren"
+    a-telegram = "https://t.me/ziyouzengzhang8"
+    b-twitter = "https://x.com/xunyingren"
     c-github = "https://github.com/3tgame"
     d-douban = "https://www.douban.com/people/32193900/"
     e-pocket = "https://jq.qq.com/?_wv=1027&k=5ggPyQW"
